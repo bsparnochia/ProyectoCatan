@@ -78,9 +78,4 @@ public class Jugador {
     public void setCantidadCaminosContruidos(int cantidadCaminosContruidos) {
         this.cantidadCaminosContruidos = cantidadCaminosContruidos;
     }
-
-    
-    
-    
-    
 }

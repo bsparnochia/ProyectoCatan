@@ -4,6 +4,9 @@
  */
 package Test;
 
+import Entities.Juego;
+import Entities.Jugador;
+
 /**
  *
  * @author Brian
@@ -16,6 +19,12 @@ public class ProyectoCatan {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("HOLA CATAN!");
+        Juego catan = new Juego();
+        
+        catan.faseEleccionJugador();
+        catan.faseColocacion();
+        catan.jugar();
+        catan.anunciarGanador();
     }
     
 }
