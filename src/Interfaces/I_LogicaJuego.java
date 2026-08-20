@@ -10,7 +10,9 @@ package Interfaces;
  */
 public interface I_LogicaJuego {
     
-    public void faseEleccionJugador();
+    public void faseCreacionJugadores();
+    
+    public void faseEleccionOrdenJugadores();
         
     public void faseColocacion();
         

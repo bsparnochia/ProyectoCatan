@@ -5,7 +5,6 @@
 package Test;
 
 import Entities.Juego;
-import Entities.Jugador;
 
 /**
  *
@@ -18,10 +17,11 @@ public class ProyectoCatan {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("HOLA CATAN!");
+        System.out.println("HOLA CATAN 1.0!");
         Juego catan = new Juego();
         
-        catan.faseEleccionJugador();
+        catan.faseCreacionJugadores();
+        catan.faseEleccionOrdenJugadores();
         catan.faseColocacion();
         catan.jugar();
         catan.anunciarGanador();
