@@ -64,7 +64,14 @@ public class Juego implements I_LogicaJuego{
 
     @Override
     public void faseColocacion() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (Jugador jugadorActual : this.listaJugadores){
+            //magia a implementar
+        }
+        // para hacer la colocacion inversa de casas y caminos, invierto la lista
+        List<Jugador> listaInvertida = invertirLista();
+        for (Jugador jugadorActual : listaInvertida){
+            //magia a implementar
+        }
     }
 
     @Override
@@ -90,6 +97,10 @@ public class Juego implements I_LogicaJuego{
     }
 
     private int evaluarTirada(int resultado) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private List<Jugador> invertirLista() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
