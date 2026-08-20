@@ -4,12 +4,16 @@
  */
 package Entities;
 
+import Enumerados.PaletaColores;
+
 /**
  *
  * @author Brian
  */
 public class Jugador {
     private int puntaje;
+    private int numeroJugador;
+    private PaletaColores color;
     private Recursos recursosJugador;
     private int cantidadCaballeros;
     //private int cantidadCartaEspecial;//queda ver como se implemanta esto mas adelante
@@ -17,11 +21,23 @@ public class Jugador {
     private int cantidadCastillos;
     private int cantidadCaminosContruidos;
 
-    public Jugador(Recursos recursosIniciales, int cantidadCasas, int cantidadCaminosContruidos) {
+    public Jugador(int numeroJugador, Recursos recursosIniciales, int cantidadCasas, int cantidadCaminosContruidos) {
         this.recursosJugador = recursosIniciales;
         this.cantidadCasas = cantidadCasas;
         this.cantidadCastillos = 0;
         this.cantidadCaminosContruidos = cantidadCaminosContruidos;
+        this.puntaje = 0;
+        this.cantidadCaballeros = 0;
+        this.numeroJugador = numeroJugador;
+        //this.cantidadCartaEspecial = 0;
+    }
+
+    Jugador(PaletaColores color, String nombre, int numeroJugador) {
+        this.numeroJugador = numeroJugador;
+        this.recursosJugador = null;
+        this.cantidadCasas = 0;
+        this.cantidadCastillos = 0;
+        this.cantidadCaminosContruidos = 0;
         this.puntaje = 0;
         this.cantidadCaballeros = 0;
         //this.cantidadCartaEspecial = 0;
