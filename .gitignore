@@ -1,0 +1,11 @@
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/.nb-gradle/
+
+# Java
+*.class
+
+# NetBeans
+nbactions.xml
