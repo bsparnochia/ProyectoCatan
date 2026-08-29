@@ -1,11 +1,15 @@
 # NetBeans
 /nbproject/private/
-/nbbuild/
+/build/
 /dist/
 /.nb-gradle/
 
-# Java
+# Java compilado
 *.class
 
 # NetBeans
 nbactions.xml
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
