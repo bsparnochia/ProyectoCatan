@@ -5,6 +5,7 @@
 package Entities;
 
 import Enumerados.PaletaColores;
+import Enumerados.Recurso;
 
 /**
  *
@@ -14,32 +15,29 @@ public class Jugador {
     private int puntaje;
     private int numeroJugador;
     private PaletaColores color;
-    private Recursos recursosJugador;
-    private int cantidadCaballeros;
+    private ManoDeCartas mano;
+    //private int cantidadCaballeros;//queda ver como se implemanta esto mas adelante
     //private int cantidadCartaEspecial;//queda ver como se implemanta esto mas adelante
     private int cantidadCasas;
     private int cantidadCastillos;
-    private int cantidadCaminosContruidos;
 
-    public Jugador(int numeroJugador, Recursos recursosIniciales, int cantidadCasas, int cantidadCaminosContruidos) {
-        this.recursosJugador = recursosIniciales;
+    public Jugador(int numeroJugador, ManoDeCartas recursosIniciales, int cantidadCasas) {
+        this.mano = recursosIniciales;
         this.cantidadCasas = cantidadCasas;
         this.cantidadCastillos = 0;
-        this.cantidadCaminosContruidos = cantidadCaminosContruidos;
         this.puntaje = 0;
-        this.cantidadCaballeros = 0;
+        //this.cantidadCaballeros = 0;
         this.numeroJugador = numeroJugador;
         //this.cantidadCartaEspecial = 0;
     }
 
     Jugador(PaletaColores color, String nombre, int numeroJugador) {
         this.numeroJugador = numeroJugador;
-        this.recursosJugador = null;
+        this.mano = null;
         this.cantidadCasas = 0;
         this.cantidadCastillos = 0;
-        this.cantidadCaminosContruidos = 0;
         this.puntaje = 0;
-        this.cantidadCaballeros = 0;
+        //this.cantidadCaballeros = 0;
         //this.cantidadCartaEspecial = 0;
     }
     
@@ -55,20 +53,24 @@ public class Jugador {
         this.puntaje = puntaje;
     }
 
-    public Recursos getRecursosJugador() {
-        return recursosJugador;
+    public ManoDeCartas getRecursosJugador() {
+        return mano;
     }
 
-    public void setRecursosJugador(Recursos recursosJugador) {
-        this.recursosJugador = recursosJugador;
+    public int getNumeroJugador() {
+        return numeroJugador;
     }
 
-    public int getCantidadCaballeros() {
-        return cantidadCaballeros;
+    public PaletaColores getColor() {
+        return color;
     }
 
-    public void setCantidadCaballeros(int cantidadCaballeros) {
-        this.cantidadCaballeros = cantidadCaballeros;
+    
+    /*
+    Levanta la cantidad de recursos indicada y la guarda en su mano
+    */
+    public void levantarRecursosLoseta( Recurso r, int cantidad){
+        this.mano.agregarRecurso(r, cantidad);
     }
 
     public int getCantidadCasas() {
@@ -86,12 +88,5 @@ public class Jugador {
     public void setCantidadCastillos(int cantidadCastillos) {
         this.cantidadCastillos = cantidadCastillos;
     }
-
-    public int getCantidadCaminosContruidos() {
-        return cantidadCaminosContruidos;
-    }
-
-    public void setCantidadCaminosContruidos(int cantidadCaminosContruidos) {
-        this.cantidadCaminosContruidos = cantidadCaminosContruidos;
-    }
+    
 }

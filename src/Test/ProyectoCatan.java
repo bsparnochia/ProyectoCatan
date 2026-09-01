@@ -4,7 +4,10 @@
  */
 package Test;
 
+
 import Entities.Juego;
+import Entities.PreparadorDeJuegos;
+import Entities.Ubicacion;
 
 /**
  *
@@ -17,14 +20,20 @@ public class ProyectoCatan {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("HOLA CATAN 1.0!");
-        Juego catan = new Juego();
-        
-        catan.faseCreacionJugadores();
-        catan.faseEleccionOrdenJugadores();
-        catan.faseColocacion();
-        catan.jugar();
-        catan.anunciarGanador();
-    }
+      System.out.println("HOLA CATAN 1.0!");
+
+      
+
     
+        PreparadorDeJuegos master = new PreparadorDeJuegos();
+        master.generarUbicaciones();
+//        Juego catan = new Juego(master.generarMapa(),master.generarTarjetaDeCostes());
+        
+//        catan.faseCreacionJugadores();
+//        catan.faseEleccionOrdenJugadores();
+//        catan.faseColocacion();
+//        catan.jugar();
+//        catan.anunciarGanador();
+    }
 }
+    
