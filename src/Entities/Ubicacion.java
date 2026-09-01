@@ -15,13 +15,15 @@ public class Ubicacion {
     private Superficie superficie;
     private Construccion construccion;//tipo de construccion en la ubicacion
     private int dueño;//recibe el numero del jugador
+    private int id;
     
     
 
-    public Ubicacion(Superficie superficie) {
+    public Ubicacion(Superficie superficie,int id) {
         this.superficie = superficie;
         this.construccion = Construccion.VACIO;
         this.dueño = 0;
+        this.id = id;
     }
 
     public boolean esAgua(){
@@ -42,6 +44,16 @@ public class Ubicacion {
     public void setDueño(int dueño) {
         this.dueño = dueño;
     }
+
+    public Superficie getSuperficie() {
+        return superficie;
+    }
+
+    public int getId() {
+        return id;
+    }
+    
+    
     
     
     
