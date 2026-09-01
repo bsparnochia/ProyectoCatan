@@ -23,8 +23,11 @@ public class PreparadorDeJuegos {
 //        Ubicacion[][] ubicaciones = generarUbicaciones();
 //    }
     
-        public TarjetaDeCostes generarTarjetaDeCostes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public TarjetaDeCostes generarTarjetaDeCostes() {
+        
+        TarjetaDeCostes tarjeta = new TarjetaDeCostes(new CostoCamino(), new CostoPoblado(), new CostoCastillo());
+        mostrarInfoTarjeta(tarjeta);
+        return tarjeta;
     }
 
     public Ubicacion[][] generarUbicaciones() {
@@ -117,5 +120,9 @@ public class PreparadorDeJuegos {
             }
             System.out.println("\n");
         }
+    }
+
+    private void mostrarInfoTarjeta(TarjetaDeCostes tarjeta) {
+        System.out.println(tarjeta.toString());
     }
 }

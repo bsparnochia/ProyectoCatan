@@ -24,9 +24,10 @@ public class ProyectoCatan {
 
       
 
-    
+    //test!
         PreparadorDeJuegos master = new PreparadorDeJuegos();
         master.generarUbicaciones();
+        master.generarTarjetaDeCostes();
 //        Juego catan = new Juego(master.generarMapa(),master.generarTarjetaDeCostes());
         
 //        catan.faseCreacionJugadores();

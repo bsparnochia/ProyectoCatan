@@ -51,6 +51,11 @@ public class CostoPoblado {
     public int getCantidadTrigo() {
         return cantidadTrigo;
     }
+
+    @Override
+    public String toString() {
+        return "CostoPoblado{" + "cantidadMadera=" + cantidadMadera + ", cantidadArcilla=" + cantidadArcilla + ", cantidadOveja=" + cantidadOveja + ", cantidadTrigo=" + cantidadTrigo + '}';
+    }
     
     
 }

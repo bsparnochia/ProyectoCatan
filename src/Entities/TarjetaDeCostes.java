@@ -31,6 +31,11 @@ public class TarjetaDeCostes {
     public CostoCastillo getCostoCastillo() {
         return costoCastillo;
     }
+
+    @Override
+    public String toString() {
+        return "TarjetaDeCostes{" + "\n->" + costoCamino + "\n->" + costoPoblado + "\n->" + costoCastillo + '}';
+    }
     
     
 }

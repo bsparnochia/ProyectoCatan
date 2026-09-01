@@ -33,6 +33,16 @@ public class CostoCamino {
     public int getCantidadArcilla() {
         return cantidadArcilla;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("CostoCamino{");
+        sb.append("cantidadMadera=").append(cantidadMadera);
+        sb.append(", cantidadArcilla=").append(cantidadArcilla);
+        sb.append('}');
+        return sb.toString();
+    }
     
     
 }
