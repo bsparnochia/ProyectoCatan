@@ -11,14 +11,16 @@ package Entities;
 public class Camino {
     private boolean ocupado;
     private int jugadorDueño;
-    private Coordenada idOrigen;
-    private Coordenada idDestino;
+    private int idOrigen;
+    private int idDestino;
     private int idCamino;
 
-    public Camino() {
-        //completarthis.idCamino =
+    public Camino(int idCamino, int idOrigen, int idDestino) {
+        this.idCamino = idCamino;
         this.ocupado = false;
         this.jugadorDueño = 0;// no esta ocupado por nadie
+        this.idOrigen = idOrigen;
+        this.idDestino = idDestino;
     }
     
     public boolean estaOcupado(){
@@ -27,6 +29,18 @@ public class Camino {
 
     public int getJugadorDueño() {
         return jugadorDueño;
+    }
+
+    public int getIdOrigen() {
+        return idOrigen;
+    }
+
+    public int getIdDestino() {
+        return idDestino;
+    }
+
+    public int getIdCamino() {
+        return idCamino;
     }
 
     public void ocuparCamino() {
