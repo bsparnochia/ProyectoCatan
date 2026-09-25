@@ -8,6 +8,6 @@ package Enumerados;
  *
  * @author Brian
  */
-public enum PaletaColores {
+public enum ColorJugador {
     ROJO,AZUL,VERDE,AMARILLO
 }

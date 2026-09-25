@@ -8,6 +8,6 @@ package Enumerados;
  *
  * @author Brian
  */
-public enum TipoZona {
-    CAMINO, UBICACION, LOSETA
+public enum Zona {
+    CAMINO, UBICACION, LOSETA, AGUA, TIERRA, DESIERTO
 }

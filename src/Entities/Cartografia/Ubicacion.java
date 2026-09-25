@@ -2,32 +2,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entities;
+package Entities.Cartografia;
 
 import Enumerados.Construccion;
-import Enumerados.Superficie;
 
 /**
  *
  * @author Brian
  */
 public class Ubicacion {
-    private Superficie superficie;
     private Construccion construccion;//tipo de construccion en la ubicacion
     private int dueño;//recibe el numero del jugador
     private int id;
     
     
 
-    public Ubicacion(Superficie superficie,int id) {
-        this.superficie = superficie;
+    public Ubicacion(int id) {
         this.construccion = Construccion.VACIO;
         this.dueño = 0;
         this.id = id;
     }
-
-    public boolean esAgua(){
-        return this.superficie == Superficie.AGUA;
+    
+    public boolean estaOcupada(){
+        return this.construccion == Construccion.VACIO;
     }
     public Construccion getConstruccion() {
         return construccion;
@@ -45,16 +42,8 @@ public class Ubicacion {
         this.dueño = dueño;
     }
 
-    public Superficie getSuperficie() {
-        return superficie;
-    }
-
     public int getId() {
         return id;
     }
-    
-    
-    
-    
     
 }

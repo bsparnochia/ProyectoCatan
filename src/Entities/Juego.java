@@ -4,9 +4,12 @@
  */
 package Entities;
 
-import Enumerados.PaletaColores;
+import Entities.Cartografia.Visual.Dibujante;
+import Entities.Cartografia.Cartografo;
+import Entities.TarjetaCostos.TarjetaDeCostes;
+import Entities.Jugador.Jugador;
+import Enumerados.ColorJugador;
 import Interfaces.I_LogicaJuego;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,10 +26,11 @@ public class Juego implements I_LogicaJuego{
      private Dibujante dibujanteConsolero;
      private Scanner sc;
      private final int NO_DEFINIDO = 0;
-     Mapa mapa;
+     
+     Cartografo mapa;
      TarjetaDeCostes tarjeta;
      
-    public Juego(Mapa mapa, TarjetaDeCostes tarjeta, Dibujante dibujante){
+    public Juego(Cartografo mapa, TarjetaDeCostes tarjeta, Dibujante dibujante){
        listaJugadores = new ArrayList();
        sc = new Scanner(System.in);
        this.ganador = null;
@@ -51,10 +55,15 @@ public class Juego implements I_LogicaJuego{
             String nombre= sc.nextLine();
             System.out.println("Elija color disponible: ");
             mostrarColoresDisponibles();//implementar
-            PaletaColores color = elegirColorJugador();//implementar
-            Jugador nuevoJugador = new Jugador(color,nombre,i);//creamos jugador
+            ColorJugador color = elegirColorJugador();//implementar
+            Jugador nuevoJugador = new Jugador(i,nombre,color);//creamos jugador
             this.listaJugadores.add(nuevoJugador);
         }
+    }
+    //genera una lista de jugadores de prueba con 2 jugadores
+    public void faseCreacionJugadoresPrueba(){
+        this.listaJugadores.add(new Jugador(1,"Elute",ColorJugador.ROJO));
+        this.listaJugadores.add(new Jugador(2,"Pelu",ColorJugador.AZUL));
     }
     
     @Override
@@ -70,7 +79,6 @@ public class Juego implements I_LogicaJuego{
         
     }
 
-
     @Override
     public void faseColocacion() { 
         /*Se realiza la primera ronda de colocacion de fichas en el tablero*/
@@ -83,6 +91,35 @@ public class Juego implements I_LogicaJuego{
         System.out.println("--Segunda Ronda de Colocacion--/n/n");
         this.realizarRondaDeColocacionInversa();
     }
+    
+    private void elegirUbicacionJugador(Jugador jugadorActual) {
+        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("-----CONSTRUCCION POBLADO INICIAL-----");
+        System.out.println("elija fila: ");
+        int fila = sc.nextInt();
+        System.out.println("elija columna: ");
+        int columna = sc.nextInt();
+        if (!this.mapa.ubicacionEstaOcupada(fila,columna)){
+            this.mapa.ocuparUbicacion(jugadorActual.getNumeroJugador(), fila, columna);
+        }
+                
+    }
+
+    private void realizarRondaDeColocacionDirecta() {
+        for (int i=0; i<this.listaJugadores.size();i++){
+            this.mapa.mostrarMapa();
+            this.elegirUbicacionJugador(this.listaJugadores.get(i));
+        }
+    }
+
+    private void realizarRondaDeColocacionInversa() {
+        int posicionInicial = this.listaJugadores.size()-1;
+        for (int i=posicionInicial; i>=-0;i--){
+            this.mapa.mostrarMapa();
+            this.elegirUbicacionJugador(this.listaJugadores.get(i));
+        }
+    }
+
 
     @Override
     public void jugar() { //testeando a ver como arrancamos haciendo 1 solo turno
@@ -123,7 +160,7 @@ public class Juego implements I_LogicaJuego{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private PaletaColores elegirColorJugador(){
+    private ColorJugador elegirColorJugador(){
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -133,25 +170,6 @@ public class Juego implements I_LogicaJuego{
 
     private int evaluarTirada(int resultado) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void elegirUbicacionJugador(Jugador jugadorActual) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void realizarRondaDeColocacionDirecta() {
-        for (int i=0; i<this.listaJugadores.size();i++){
-            this.mapa.mostrarMapa();
-            this.elegirUbicacionJugador(this.listaJugadores.get(i));
-        }
-    }
-
-    private void realizarRondaDeColocacionInversa() {
-        int posicionInicial = this.listaJugadores.size()-1;
-        for (int i=posicionInicial; i>=-0;i--){
-            this.mapa.mostrarMapa();
-            this.elegirUbicacionJugador(this.listaJugadores.get(i));
-        }
     }
 
     private void jugadaLadron() {

@@ -2,7 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entities;
+package Entities.TarjetaCostos;
+
+import Entities.TarjetaCostos.CostoCamino;
+import Entities.TarjetaCostos.CostoPoblado;
+import Entities.TarjetaCostos.CostoCastillo;
 
 /**
  *
@@ -30,6 +34,10 @@ public class TarjetaDeCostes {
 
     public CostoCastillo getCostoCastillo() {
         return costoCastillo;
+    }
+    
+    public void mostrarInfoTarjeta() {
+        System.out.println(this.toString());
     }
 
     @Override

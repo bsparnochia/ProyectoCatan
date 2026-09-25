@@ -9,5 +9,5 @@ package Enumerados;
  * @author Brian
  */
 public enum Recurso {
-    TRIGO, PIEDRA, ARCILLA, MADERA, OVEJA;
+    TRIGO, PIEDRA, ARCILLA, MADERA, OVEJA, NINGUNO
 }

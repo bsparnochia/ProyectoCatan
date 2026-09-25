@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entities;
+package Entities.Jugador;
 
-import Enumerados.PaletaColores;
+import Enumerados.ColorJugador;
 import Enumerados.Recurso;
 
 /**
@@ -12,36 +12,41 @@ import Enumerados.Recurso;
  * @author Brian
  */
 public class Jugador {
-    private int puntaje;
     private int numeroJugador;
-    private PaletaColores color;
+    private String nombre;
+    private ColorJugador color;
+    private int puntaje;
     private ManoDeCartas mano;
-    //private int cantidadCaballeros;//queda ver como se implemanta esto mas adelante
-    //private int cantidadCartaEspecial;//queda ver como se implemanta esto mas adelante
     private int cantidadCasas;
     private int cantidadCastillos;
+    //private int cantidadCaballeros;//queda ver como se implemanta esto mas adelante
+    //private int cantidadCartaEspecial;//queda ver como se implemanta esto mas adelante
 
-    public Jugador(int numeroJugador, ManoDeCartas recursosIniciales, int cantidadCasas) {
+    public Jugador(int numeroJugador, String nombre, ManoDeCartas recursosIniciales, int cantidadCasas, ColorJugador color) {
+        this.numeroJugador = numeroJugador;
+        this.nombre = nombre;
+        this.color = color;
+        this.puntaje = 0;
         this.mano = recursosIniciales;
         this.cantidadCasas = cantidadCasas;
         this.cantidadCastillos = 0;
-        this.puntaje = 0;
         //this.cantidadCaballeros = 0;
-        this.numeroJugador = numeroJugador;
         //this.cantidadCartaEspecial = 0;
     }
 
-    Jugador(PaletaColores color, String nombre, int numeroJugador) {
+    public Jugador(int numeroJugador, String nombre, ColorJugador color) {
         this.numeroJugador = numeroJugador;
-        this.mano = null;
+        this.nombre = nombre;
+        this.color = color;
+        this.puntaje = 0;
+        this.mano = new ManoDeCartas();
         this.cantidadCasas = 0;
         this.cantidadCastillos = 0;
-        this.puntaje = 0;
         //this.cantidadCaballeros = 0;
         //this.cantidadCartaEspecial = 0;
     }
     
-    int tirarDados(){
+    public int tirarDados(){
         return 5; //ver que formula hay para tirar dados al azar
     }
 
@@ -61,10 +66,15 @@ public class Jugador {
         return numeroJugador;
     }
 
-    public PaletaColores getColor() {
+    public ColorJugador getColor() {
         return color;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    
     
     /*
     Levanta la cantidad de recursos indicada y la guarda en su mano

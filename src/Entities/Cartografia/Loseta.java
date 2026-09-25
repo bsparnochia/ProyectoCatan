@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entities;
+package Entities.Cartografia;
 
 import Enumerados.Recurso;
 import java.util.List;
@@ -19,23 +19,30 @@ import java.util.List;
  */
 public class Loseta {
     private static final int UBICACIONES_TOTALES_LOZETA = 6;
-    private int numeroLoseta;
+    private static final String NUMERO_NO_DEFINIDO = "0";
+    private String numeroLoseta;
     private int id;//identifica el numero de loseta en el juego
     private Recurso recurso;
-    private List<Coordenada> ubicacionesLoseta; 
+    private List<Integer> ubicacionesLoseta; 
 
-    public Loseta(int numeroLoseta, int id, Recurso recurso, List<Coordenada> ubicacionesLoseta) {
-        this.numeroLoseta = numeroLoseta;
+    public Loseta( int id, Recurso recurso, List<Integer> ubicacionesLoseta) {
+        this.numeroLoseta = NUMERO_NO_DEFINIDO;
         this.id = id;
         this.recurso = recurso;
         this.ubicacionesLoseta = ubicacionesLoseta;
     }
+
+    public void setNumeroLoseta(String numeroLoseta) {
+        this.numeroLoseta = numeroLoseta;
+    }
     
-    public boolean contieneCoordenada(Coordenada buscada){
+    
+    
+    public boolean contieneCoordenada(int buscada){
         return this.ubicacionesLoseta.contains(buscada);
     }
 
-    public int getNumeroLoseta() {
+    public String getNumeroLoseta() {
         return numeroLoseta;
     }
 
@@ -45,6 +52,11 @@ public class Loseta {
 
     public Recurso getRecurso() {
         return recurso;
+    }
+
+    @Override
+    public String toString() {
+        return "Loseta{" + "numeroLoseta=" + numeroLoseta + ", id=" + id + ", recurso=" + recurso + ", ubicacionesLoseta=" + ubicacionesLoseta + '}';
     }
     
     
