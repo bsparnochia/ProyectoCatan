@@ -45,5 +45,11 @@ public class Ubicacion {
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Ubicacion{" + "construccion=" + construccion + ", due\u00f1o=" + dueño + ", id=" + id + '}';
+    }
+    
     
 }

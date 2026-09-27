@@ -4,6 +4,8 @@
  */
 package Entities.Cartografia.Grafo;
 
+import Entities.Cartografia.Camino;
+import Entities.Cartografia.Ubicacion;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,37 +14,36 @@ import java.util.List;
  * @author Brian
  */
 public class Grafo {
-    private List<Vertice> listaVertice;
-    private Arista[][] matrizAdy;
-    private int cantidadVertices;
+    private List<Ubicacion> listaUbicaciones;
+    private Camino[][] matrizAdy;
+    private int cantidadUbicaciones;
     private static final int POSICION_INEXISTENTE = -1;
-    private static final int CANTIDAD_VERTICES_DEFAULT = 54;
+    private static final int CANTIDAD_UBICACIONES_DEFAULT = 54;
 
-    public Grafo(List<Vertice> listaVertice, int cantidadVertices) {
-        this.listaVertice = listaVertice;
-        this.matrizAdy = new Arista[cantidadVertices][cantidadVertices];
-        this.cantidadVertices = cantidadVertices;
+    public Grafo(List<Ubicacion> listaVertice, int cantidadVertices) {
+        this.listaUbicaciones = listaVertice;
+        this.matrizAdy = new Camino[cantidadVertices][cantidadVertices];
+        this.cantidadUbicaciones = cantidadVertices;
     }
     
     public Grafo(){
-        this.listaVertice = new ArrayList<>();
-        this.matrizAdy = new Arista[CANTIDAD_VERTICES_DEFAULT][CANTIDAD_VERTICES_DEFAULT];
-        this.cantidadVertices = CANTIDAD_VERTICES_DEFAULT;
+        this.listaUbicaciones = new ArrayList<>();
+        this.matrizAdy = new Camino[CANTIDAD_UBICACIONES_DEFAULT][CANTIDAD_UBICACIONES_DEFAULT];
+        this.cantidadUbicaciones = CANTIDAD_UBICACIONES_DEFAULT;
     }
 
     /**
      * Busca el vertice en el listado de vertices del Grafo
-     * @param a
+     * @param buscado
      * @return posicion = -1 si no lo encuentra, sino posicion >= 0
      */
-    public int buscarVertice(String a){
+    public int buscarUbicacion(int buscado){
         boolean encontrado=false;
-        Vertice buscado = new Vertice(a);
         int posicion=-1;// por defecto no la encontro
         int i=0;
-        while(!encontrado && i<listaVertice.size()){
-            Vertice actual = this.listaVertice.get(i);
-            if(buscado.equals(actual)){
+        while(!encontrado && i<this.listaUbicaciones.size()){
+            int actual = this.listaUbicaciones.get(i).getId();
+            if(buscado==actual){
                 encontrado=true;
                 posicion=i;
             }else{i++;}
@@ -50,24 +51,21 @@ public class Grafo {
         return posicion;       
     }
     
-    private boolean existeVertice(String a){
-        return this.buscarVertice(a) != POSICION_INEXISTENTE;
+    private boolean existeUbicacion(int nuevo){
+        return this.buscarUbicacion(nuevo) != POSICION_INEXISTENTE;
     }
     
-    private boolean existeVertice(int a){
-        return a != POSICION_INEXISTENTE;
-    }
     
-    public void agregarVertice(String a) throws Exception{
-        if (!this.existeVertice(a)){
-            this.listaVertice.add(new Vertice(a,this.listaVertice.size()));
+    public void agregarUbicacion(int a) throws Exception{
+        if (!this.existeUbicacion(a)){
+            this.listaUbicaciones.add(new Ubicacion(a));
         }else{
             throw new Exception ("Ya existe el vertice!");
         }
     }
     
     public int getCantidadVertices(){
-        return this.listaVertice.size();
+        return this.listaUbicaciones.size();
     }
 
     /**
@@ -77,13 +75,13 @@ public class Grafo {
      * @return devuelve una arista si encuentra resultado sino null
      * @throws Exception 
      */
-    public Arista buscarArista(String origen, String destino){
-        Arista buscado = null;
+    public Camino buscarCamino(int origen, int destino){
+        Camino buscado = null;
         try {
-            int idOrigen = this.buscarVertice(origen);
-            int idDestino = this.buscarVertice(destino);
-            if (this.existeVertice(idOrigen) && this.existeVertice(idDestino)) {
-                buscado = this.matrizAdy[idOrigen][idDestino];
+            int posOrigen = this.buscarUbicacion(origen);
+            int posDestino = this.buscarUbicacion(destino);
+            if (this.existeUbicacion(origen) && this.existeUbicacion(destino)) {
+                buscado = this.matrizAdy[posOrigen][posDestino];
             } else {
                 throw new Exception("no existe uno o ambos vertices!");
             }
@@ -95,16 +93,18 @@ public class Grafo {
         return buscado;
     }
     
-    private boolean existeArista(String origen, String destino){
-        return this.buscarArista(origen, destino) != null;
+    private boolean existeCamino(int origen, int destino){
+        return this.buscarCamino(origen, destino) != null;
     }
     
-    public void agregarArista(String origen, String destino) throws Exception{
-        if (!this.existeArista(origen, destino)){
-            Vertice verticeOrigen = this.listaVertice.get(this.buscarVertice(origen));
-            Vertice verticeDestino = this.listaVertice.get(this.buscarVertice(destino));
-            this.matrizAdy[verticeOrigen.getId()][verticeDestino.getId()] = new Arista(verticeOrigen,verticeDestino);
-            this.matrizAdy[verticeDestino.getId()][verticeOrigen.getId()] = new Arista(verticeDestino,verticeOrigen);
+    public void agregarCamino(int id, int origen, int destino) throws Exception{
+        if (!this.existeCamino(origen, destino)){
+            int posOrigen = this.buscarUbicacion(origen);
+            int posDestino = this.buscarUbicacion(destino);
+            Ubicacion verticeOrigen = this.listaUbicaciones.get(posOrigen);
+            Ubicacion verticeDestino = this.listaUbicaciones.get(posDestino);
+            this.matrizAdy[posOrigen][posDestino] = new Camino(id,verticeOrigen,verticeDestino);
+            this.matrizAdy[posDestino][posOrigen] = new Camino(id,verticeDestino,verticeOrigen);
         }else{
             throw new Exception("ya existe la aristaaaaa");
         }
@@ -112,15 +112,15 @@ public class Grafo {
     }
     
     public void mostrarVertices(){
-        for (Vertice v: this.listaVertice){
+        for (Ubicacion v: this.listaUbicaciones){
             System.out.println(v.toString());
         }
     }
 
     public void mostrarAristas() {
-        for (int i=0; i<this.cantidadVertices; i++){
-            for (int j=0; j<this.cantidadVertices; j++){
-                Arista actual = this.matrizAdy[i][j];
+        for (int i=0; i<this.cantidadUbicaciones; i++){
+            for (int j=0; j<this.cantidadUbicaciones; j++){
+                Camino actual = this.matrizAdy[i][j];
                 if (actual != null)
                     System.out.println(actual.toString());
             }

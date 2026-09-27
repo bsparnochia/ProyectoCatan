@@ -35,22 +35,21 @@ public class ProyectoCatan {
       
 
         
-        CargaInicial carga = new CargaInicial();
-        carga.configurarMapa();
+        //CargaInicial carga = new CargaInicial();
+        //carga.configurarMapa();
         
         Grafo grafo = new Grafo();
         
         try {
             
             // agrego vertices
-            grafo.agregarVertice("a");
-            grafo.agregarVertice("b");
-            grafo.agregarVertice("c");
+            grafo.agregarUbicacion(1);
+            grafo.agregarUbicacion(55);
+            grafo.agregarUbicacion(22);
 
             //agrego aristas
-            grafo.agregarArista("a", "b");
-            grafo.agregarArista("a", "c");
-            //grafo.agregarArista("c", "a");
+            grafo.agregarCamino(2,1, 22);
+            grafo.agregarCamino(1,55, 22);
             
             
             //muestro vertices creados
