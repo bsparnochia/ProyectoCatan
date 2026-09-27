@@ -16,6 +16,7 @@ import Entities.Cartografia.Visual.ElementoMapa;
 import Entities.CargaInicial.CargaInicial;
 import Entities.CargaInicial.CargaLosetas;
 import Entities.CargaInicial.DistribuidorNumeros;
+import Entities.Cartografia.Grafo.Grafo;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,30 @@ public class ProyectoCatan {
         
         CargaInicial carga = new CargaInicial();
         carga.configurarMapa();
+        
+        Grafo grafo = new Grafo();
+        
+        try {
+            
+            // agrego vertices
+            grafo.agregarVertice("a");
+            grafo.agregarVertice("b");
+            grafo.agregarVertice("c");
+
+            //agrego aristas
+            grafo.agregarArista("a", "b");
+            grafo.agregarArista("a", "c");
+            //grafo.agregarArista("c", "a");
+            
+            
+            //muestro vertices creados
+            grafo.mostrarVertices();
+            grafo.mostrarAristas();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
 //herramientas visuales
 //        lienzo.mostrarLienzo();
 //        lienzo.showCoordenadalosetas();
