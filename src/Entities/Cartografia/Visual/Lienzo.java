@@ -5,8 +5,7 @@
 package Entities.Cartografia.Visual;
 
 import Entities.Cartografia.Coordenada;
-import Entities.Cartografia.Coordenada;
-import Entities.CargaInicial.NumeracionCatan;
+import Entities.CargaLienzo.NumeracionCatan;
 import Enumerados.Zona;
 import java.util.HashMap;
 import java.util.List;
@@ -16,14 +15,14 @@ import java.util.Map;
  *
  * @author Brian
  */
-public class Mapa {
-    private ElementoMapa[][] elemento;
+public class Lienzo {
+    private ElementoLienzo[][] elemento;
     private int altoLienzo;
     private int anchoLienzo;
     private Map<Integer, Coordenada> tablaId;
     private Dibujante pintor;
 
-    public Mapa(ElementoMapa[][] elemento, int altoLienzo, int anchoLienzo, Map<Integer, Coordenada> tablaId) {
+    public Lienzo(ElementoLienzo[][] elemento, int altoLienzo, int anchoLienzo, Map<Integer, Coordenada> tablaId) {
         this.elemento = elemento;
         this.altoLienzo = altoLienzo;
         this.anchoLienzo = anchoLienzo;
@@ -31,11 +30,11 @@ public class Mapa {
         this.pintor = new Dibujante();
     }
 
-    public ElementoMapa getElementoXcoordenada(int fila, int columna) {
+    public ElementoLienzo getElementoXcoordenada(int fila, int columna) {
         return this.elemento[fila][columna];
     }
      
-    public ElementoMapa getElementoXcoordenada(Coordenada c) {
+    public ElementoLienzo getElementoXcoordenada(Coordenada c) {
         return this.elemento[c.getFila()][c.getColumna()];
     }
     
@@ -43,7 +42,7 @@ public class Mapa {
         return this.elemento[fila][columna].getId();
     }
     
-    public ElementoMapa getElementoXid(int id){
+    public ElementoLienzo getElementoXid(int id){
         return this.getElementoXcoordenada(this.tablaId.get(id));
     }
     
@@ -119,7 +118,7 @@ public class Mapa {
         for (int i=0; i<this.altoLienzo; i++){
             System.out.print(i+1+"   ");
             for (int j=0; j<this.anchoLienzo; j++){
-                ElementoMapa elemento = this.elemento[i][j];
+                ElementoLienzo elemento = this.elemento[i][j];
                 if (elemento!=null){
                      System.out.print(this.pintor.pintarElemento(elemento));
                 }
@@ -147,11 +146,11 @@ public class Mapa {
         return anchoLienzo;
     }
 
-    private boolean esNumeroLoseta(ElementoMapa elementoLienzo) {
+    private boolean esNumeroLoseta(ElementoLienzo elementoLienzo) {
         return elementoLienzo.getTipoZona() == Zona.LOSETA || elementoLienzo.getTipoZona() == Zona.DESIERTO;
     }
 
-    private boolean esUbicacion(ElementoMapa elementoLienzo) {
+    private boolean esUbicacion(ElementoLienzo elementoLienzo) {
         return elementoLienzo.getTipoZona() == Zona.UBICACION;
     }
 

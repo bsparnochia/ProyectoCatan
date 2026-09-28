@@ -10,13 +10,13 @@ import Enumerados.Zona;
  *
  * @author Brian
  */
-public class ElementoMapa {
+public class ElementoLienzo {
     private int id;
     private Zona tipoZona;
     private String simbolo;
     
 
-    public ElementoMapa( int id, Zona tipoZona, String simbolo) {
+    public ElementoLienzo( int id, Zona tipoZona, String simbolo) {
         this.id = id;
         this.tipoZona = tipoZona;
         this.simbolo = simbolo;

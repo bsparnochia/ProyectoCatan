@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entities.CargaInicial;
+package Entities.CargaLienzo;
 
 import Entities.Cartografia.Coordenada;
-import Entities.Cartografia.Visual.Mapa;
+import Entities.Cartografia.Visual.Lienzo;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;

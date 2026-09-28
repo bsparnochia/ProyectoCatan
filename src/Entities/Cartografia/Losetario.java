@@ -4,8 +4,7 @@
  */
 package Entities.Cartografia;
 
-import Entities.CargaInicial.NumeracionCatan;
-import Enumerados.Recurso;
+import Entities.CargaLienzo.NumeracionCatan;
 import java.util.List;
 
 /**
@@ -29,7 +28,7 @@ public class Losetario {
     private int buscarIdLadron() {
         int id=0;
         for (Loseta l : this.listaLoseta){
-            if (l.getRecurso() == Recurso.NINGUNO){
+            if (l.estaLadronEnLoseta()){
                 return l.getId();    
             }
         }
@@ -38,6 +37,10 @@ public class Losetario {
 
     public int getIdLadron() {
         return idLadron;
+    }
+    
+    public void setIdLadron(int id){
+        this.idLadron = id;
     }
     
     public void showLosetasGeneradas(){

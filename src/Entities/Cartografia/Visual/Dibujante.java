@@ -35,7 +35,7 @@ public class Dibujante {
      * @param elemento
      * @return Devuelve "dibujo" pintado
      */
-    public String pintarElemento(ElementoMapa elemento) {
+    public String pintarElemento(ElementoLienzo elemento) {
         String dibujo = elemento.getSimbolo();
         
         switch(dibujo){

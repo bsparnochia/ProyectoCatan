@@ -2,15 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entities.CargaInicial;
+package Entities.CargaLienzo;
 
 import Entities.Cartografia.Coordenada;
-import Entities.TarjetaCostos.CostoCamino;
-import Entities.TarjetaCostos.CostoCastillo;
-import Entities.TarjetaCostos.CostoPoblado;
-import Entities.Cartografia.Visual.ElementoMapa;
-import Entities.Cartografia.Visual.Mapa;
-import Entities.TarjetaCostos.TarjetaDeCostes;
+import Entities.Cartografia.Visual.ElementoLienzo;
+import Entities.Cartografia.Visual.Lienzo;
 import Enumerados.Zona;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,24 +17,24 @@ import java.util.Map;
  *
  * @author Brian
  */
-public class CargaMapa {
+public class CargaLienzo {
     //esta clase se encarga de leer el archivo de texto y preparar el juego!
     private static final String UBICACION_MAPA="src/Configuracion/mapa_catan.csv";
     private final int ALTO_MAPA=11;
     private final int ANCHO_MAPA=21;
-    ElementoMapa[][] lienzo;
+    ElementoLienzo[][] lienzo;
 
-    public CargaMapa() {
-        this.lienzo = new ElementoMapa[this.ALTO_MAPA][this.ANCHO_MAPA];
+    public CargaLienzo() {
+        this.lienzo = new ElementoLienzo[this.ALTO_MAPA][this.ANCHO_MAPA];
     }
 
     /* ------------------MAPA PARSEO--------------------- */
     
-    public Mapa generarPreLienzo(){
+    public Lienzo generarPreLienzo(){
         //si el lienzo no existe generalo, sino devuelve el que tiene ya creado
         this.LeerArchivoLienzo();
         Map<Integer, Coordenada> tablaId = generarTablaId();
-        return new Mapa(this.lienzo, this.ALTO_MAPA,this.ANCHO_MAPA, tablaId);
+        return new Lienzo(this.lienzo, this.ALTO_MAPA,this.ANCHO_MAPA, tablaId);
     }
 
     
@@ -69,7 +65,7 @@ public class CargaMapa {
                     }else{
                         idActual++;
                         this.lienzo[i][j]= 
-                                new ElementoMapa(idActual, this.getZona(elemento.toString()),elemento.toString());
+                                new ElementoLienzo(idActual, this.getZona(elemento.toString()),elemento.toString());
                         elemento.setLength(0);
                         j++;
                         

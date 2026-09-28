@@ -24,12 +24,14 @@ public class Loseta {
     private int id;//identifica el numero de loseta en el juego
     private Recurso recurso;
     private List<Integer> ubicacionesLoseta; 
+    private boolean ladronOcupado;
 
-    public Loseta( int id, Recurso recurso, List<Integer> ubicacionesLoseta) {
+    public Loseta( int id, Recurso recurso, List<Integer> ubicacionesLoseta, boolean ladron) {
         this.numeroLoseta = NUMERO_NO_DEFINIDO;
         this.id = id;
         this.recurso = recurso;
         this.ubicacionesLoseta = ubicacionesLoseta;
+        this.ladronOcupado = ladron;
     }
 
     public void setNumeroLoseta(String numeroLoseta) {
@@ -46,6 +48,14 @@ public class Loseta {
         return numeroLoseta;
     }
 
+    public void ponerLadron(){
+        this.ladronOcupado = true;
+    }
+    
+    public void quitarLadron(){
+        this.ladronOcupado = false;
+    }
+    
     public int getId() {
         return id;
     }
@@ -54,10 +64,16 @@ public class Loseta {
         return recurso;
     }
 
+    public boolean estaLadronEnLoseta(){
+        return this.ladronOcupado;
+    }
+
     @Override
     public String toString() {
-        return "Loseta{" + "numeroLoseta=" + numeroLoseta + ", id=" + id + ", recurso=" + recurso + ", ubicacionesLoseta=" + ubicacionesLoseta + '}';
+        return "Loseta{" + "numeroLoseta=" + numeroLoseta + ", id=" + id + ", recurso=" + recurso + ", ubicacionesLoseta=" + ubicacionesLoseta + ", ladronOcupado=" + ladronOcupado + '}';
     }
+    
+    
     
     
     

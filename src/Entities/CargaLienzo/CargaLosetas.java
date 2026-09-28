@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entities.CargaInicial;
+package Entities.CargaLienzo;
 
 import Entities.Cartografia.Loseta;
 import Enumerados.Recurso;
@@ -89,9 +89,15 @@ public class CargaLosetas {
         ubicaciones.add(id5);
         ubicaciones.add(id6);
         
+        //Verifico si es el desierto para asignar el ladron a la loseta inicial
+        boolean ladron = false;
+        if(material == Recurso.NINGUNO){
+            ladron = true;
+        }
+        
         //genero la loseta con los datos obtenidos
             
-        return new Loseta(idLoseta,material,ubicaciones);
+        return new Loseta(idLoseta,material,ubicaciones,ladron);
     }
 
     private Recurso getRecurso( String material) {

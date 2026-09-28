@@ -2,46 +2,55 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entities.CargaInicial;
+package Entities.CargaLienzo;
 
 import Entities.Cartografia.Loseta;
 import Entities.Cartografia.Losetario;
-import Entities.Cartografia.Visual.Mapa;
+import Entities.Cartografia.Visual.Lienzo;
 import java.util.List;
 
 /**
  *
  * @author Brian
  */
-public class CargaInicial {
-    private CargaMapa cargaLienzo;
+public class CargaInicialMapa {
+    private CargaLienzo cargaLienzo;
     private CargaLosetas cargaLosetas;
     private DistribuidorNumeros distribuidor;
+    private Lienzo lienzo;
+    private Losetario losetario;
 
-    public CargaInicial() {
-        this.cargaLienzo = new CargaMapa();
+    public CargaInicialMapa() {
+        this.cargaLienzo = new CargaLienzo();
         this.cargaLosetas = new CargaLosetas();
         this.distribuidor = new DistribuidorNumeros();
+        this.configurarMapa();
     }
     
-    public Mapa configurarMapa(){
-        Mapa lienzo = this.cargaLienzo.generarPreLienzo();
-        List<Loseta> listaLosetas = this.cargaLosetas.generarLosetas();
-        Losetario losetario = new Losetario(listaLosetas);
-        //this.cargaLosetas.showLosetasGeneradas();
+    public final void configurarMapa(){
+        this.lienzo = this.cargaLienzo.generarPreLienzo();
+
+        this.losetario = new Losetario(this.cargaLosetas.generarLosetas());
         int idLadron = losetario.getIdLadron();
         //System.out.println("Loseta del ladron: "+idLadron);
         List<NumeracionCatan> ordenNumerosLosetario =this.distribuidor.distribuirNumerosEnLosetas(idLadron);
         lienzo.configurarNumeros(ordenNumerosLosetario);
         losetario.configurarNumeros(ordenNumerosLosetario);
-        //losetario.showLosetasGeneradas();
-        lienzo.showMapa();
-        lienzo.showMapaPintado();
-
-//        lienzo.showIDlosetas();
-
         
-        return lienzo; 
+        //**TESTEO VISUAL DE INFO DEL LIENZO**
+        //losetario.showLosetasGeneradas();
+        //lienzo.showMapa();
+        //lienzo.showMapaPintado();
+        //lienzo.showIDlosetas();
+
+    }
+    
+    public Losetario crearLosetario(){
+        return this.losetario;
+    }
+    
+    public Lienzo crearLienzo(){
+        return this.lienzo;
     }
     
 }
