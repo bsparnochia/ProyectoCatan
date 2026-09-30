@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entities.CargaLienzo;
+package Entities.CargaInicial.CargaLienzo;
 
 import Entities.Cartografia.Loseta;
 import Entities.Cartografia.Losetario;
@@ -35,14 +35,7 @@ public class CargaInicialMapa {
         //System.out.println("Loseta del ladron: "+idLadron);
         List<NumeracionCatan> ordenNumerosLosetario =this.distribuidor.distribuirNumerosEnLosetas(idLadron);
         lienzo.configurarNumeros(ordenNumerosLosetario);
-        losetario.configurarNumeros(ordenNumerosLosetario);
-        
-        //**TESTEO VISUAL DE INFO DEL LIENZO**
-        //losetario.showLosetasGeneradas();
-        //lienzo.showMapa();
-        //lienzo.showMapaPintado();
-        //lienzo.showIDlosetas();
-
+        losetario.configurarNumeros(ordenNumerosLosetario);        
     }
     
     public Losetario crearLosetario(){

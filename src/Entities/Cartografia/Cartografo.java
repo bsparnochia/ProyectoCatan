@@ -28,6 +28,8 @@ public class Cartografo {
     
     public void mostrarMapa(){
         this.lienzo.showMapaPintado();
+        System.out.println("El ladron esta en la loseta: "+this.losetario.getLosetaLadron().getNumeroLoseta());
+        System.out.println("Recurso: "+this.losetario.getLosetaLadron().getRecurso());
     }
 
 //    public Recurso getRecursoSegunTirada(int dados){

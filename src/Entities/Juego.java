@@ -8,7 +8,7 @@ import Entities.Cartografia.Visual.Dibujante;
 import Entities.Cartografia.Cartografo;
 import Entities.Cartografia.Grafo.Grafo;
 import Entities.Cartografia.Visual.Lienzo;
-import Entities.TarjetaCostos.TarjetaDeCostes;
+import Entities.CargaInicial.TarjetaCostos.TarjetaDeCostes;
 import Entities.Jugador.Jugador;
 import Enumerados.ColorJugador;
 import Interfaces.I_LogicaJuego;
@@ -20,13 +20,13 @@ import java.util.Scanner;
  *
  * @author Brian
  */
-public class Juego{ //implements I_LogicaJuego{
+public class Juego implements I_LogicaJuego{
     
+     private Cartografo mapa;
+     private TarjetaDeCostes tarjeta;
      private List <Jugador> listaJugadores;
      private Jugador jugadorActual;
      private Jugador ganador;
-     private Cartografo mapa;
-     private TarjetaDeCostes tarjeta;
      private Scanner sc;
      private final int NO_DEFINIDO = 0;
           
@@ -38,33 +38,59 @@ public class Juego{ //implements I_LogicaJuego{
        this.mapa = mapa;
        this.tarjeta = tarjeta;
     }
-//
-//    @Override
-//    /**
-//     * En esta fase se crean los jugadores con nombre, color elegido de las estructuras
-//     * y el numero de jugador
-//     * NOTA!: el numero de jugador es PROVISORIO, solo sirve para dar un orden inicial
-//     * para resolver la siguiente fase: faseEleccionOrdenJugadores()
-//     */
-//    public void faseCreacionJugadores() {
-//        System.out.println("ingrese cantidad de jugadores: ");
-//        int cantidadJugadores = sc.nextInt();
-//        for (int i=1; i<cantidadJugadores; i++){
-//            System.out.println("ingrese nombre jugador");
-//            String nombre= sc.nextLine();
-//            System.out.println("Elija color disponible: ");
-//            mostrarColoresDisponibles();//implementar
-//            ColorJugador color = elegirColorJugador();//implementar
-//            Jugador nuevoJugador = new Jugador(i,nombre,color);//creamos jugador
-//            this.listaJugadores.add(nuevoJugador);
-//        }
-//    }
-//    //genera una lista de jugadores de prueba con 2 jugadores
-//    public void faseCreacionJugadoresPrueba(){
-//        this.listaJugadores.add(new Jugador(1,"Elute",ColorJugador.ROJO));
-//        this.listaJugadores.add(new Jugador(2,"Pelu",ColorJugador.AZUL));
-//    }
-//    
+
+    @Override
+    /**
+     * En esta fase se crean los jugadores con nombre, color elegido de las estructuras
+     * y el numero de jugador
+     * NOTA!: el numero de jugador es PROVISORIO, solo sirve para dar un orden inicial
+     * para resolver la siguiente fase: faseEleccionOrdenJugadores()
+     */
+    public void faseCreacionJugadores() {
+        System.out.println("ingrese cantidad de jugadores: ");
+        int cantidadJugadores = sc.nextInt();
+        for (int i=1; i<cantidadJugadores; i++){
+            System.out.println("ingrese nombre jugador");
+            String nombre= sc.nextLine();
+            System.out.println("Elija color disponible: ");
+            mostrarColoresDisponibles();//implementar
+            ColorJugador color = elegirColorJugador();//implementar
+            Jugador nuevoJugador = new Jugador(i,nombre,color);//creamos jugador
+            this.listaJugadores.add(nuevoJugador);
+        }
+   }
+    //genera una lista de jugadores de prueba con 2 jugadores
+    public void faseCreacionJugadoresPrueba(){
+        this.listaJugadores.add(new Jugador(1,"Elute",ColorJugador.ROJO));
+        this.listaJugadores.add(new Jugador(2,"Pelu",ColorJugador.AZUL));
+    }
+    
+    @Override
+    public void faseEleccionOrdenJugadores() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void faseColocacion() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void jugar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void anunciarGanador() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    private void mostrarColoresDisponibles() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private ColorJugador elegirColorJugador(){
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 //    @Override
 //    public void faseEleccionOrdenJugadores() {
 //        int primerJugador = NO_DEFINIDO;
@@ -155,13 +181,6 @@ public class Juego{ //implements I_LogicaJuego{
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 //    }
 //
-//    private void mostrarColoresDisponibles() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//
-//    private ColorJugador elegirColorJugador(){
-//        throw new UnsupportedOperationException("Not supported yet.");
-//    }
 //
 //    private List<Jugador> ordenarJugadores(int primerJugador) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -222,4 +241,5 @@ public class Juego{ //implements I_LogicaJuego{
 //
 //
 //
+
 }

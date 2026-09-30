@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entities.CargaLienzo;
+package Entities.CargaInicial.CargaLienzo;
 
 import Entities.Cartografia.Loseta;
 import Enumerados.Recurso;
@@ -25,8 +25,6 @@ public class CargaLosetas {
         this.listaLoseta = new ArrayList<>();
         this.listaId = new ArrayList<>();
     }
-    
-    
     
     public List<Loseta> generarLosetas(){  
         this.listaLoseta = new ArrayList();

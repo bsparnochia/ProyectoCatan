@@ -18,7 +18,6 @@ import java.util.List;
  * -Un ID unico
  */
 public class Loseta {
-    private static final int UBICACIONES_TOTALES_LOZETA = 6;
     private static final String NUMERO_NO_DEFINIDO = "0";
     private String numeroLoseta;
     private int id;//identifica el numero de loseta en el juego
@@ -38,14 +37,12 @@ public class Loseta {
         this.numeroLoseta = numeroLoseta;
     }
     
-    
+    public String getNumeroLoseta() {
+        return numeroLoseta;
+    }
     
     public boolean contieneCoordenada(int buscada){
         return this.ubicacionesLoseta.contains(buscada);
-    }
-
-    public String getNumeroLoseta() {
-        return numeroLoseta;
     }
 
     public void ponerLadron(){
@@ -56,6 +53,10 @@ public class Loseta {
         this.ladronOcupado = false;
     }
     
+    public boolean estaLadronEnLoseta(){
+        return this.ladronOcupado;
+    }
+    
     public int getId() {
         return id;
     }
@@ -64,9 +65,6 @@ public class Loseta {
         return recurso;
     }
 
-    public boolean estaLadronEnLoseta(){
-        return this.ladronOcupado;
-    }
 
     @Override
     public String toString() {

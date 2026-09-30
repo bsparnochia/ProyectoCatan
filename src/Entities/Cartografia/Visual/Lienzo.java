@@ -5,7 +5,7 @@
 package Entities.Cartografia.Visual;
 
 import Entities.Cartografia.Coordenada;
-import Entities.CargaLienzo.NumeracionCatan;
+import Entities.CargaInicial.CargaLienzo.NumeracionCatan;
 import Enumerados.Zona;
 import java.util.HashMap;
 import java.util.List;
@@ -114,13 +114,21 @@ public class Lienzo {
     
     public void showMapaPintado() {
         System.out.println("");
-        System.out.println("    1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21");
+        System.out.println("    1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21");
         for (int i=0; i<this.altoLienzo; i++){
-            System.out.print(i+1+"   ");
+            if (i<9){
+                System.out.print(i+1+"   ");   
+            }else{
+                System.out.print(i+1+"  ");   
+
+            }
             for (int j=0; j<this.anchoLienzo; j++){
                 ElementoLienzo elemento = this.elemento[i][j];
                 if (elemento!=null){
                      System.out.print(this.pintor.pintarElemento(elemento));
+                     if(elemento.getSimbolo().matches("[0-9]{2,}")){
+                         j++;
+                     }
                 }
             }
             System.out.println("");

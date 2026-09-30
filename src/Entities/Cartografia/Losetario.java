@@ -4,11 +4,11 @@
  */
 package Entities.Cartografia;
 
-import Entities.CargaLienzo.NumeracionCatan;
+import Entities.CargaInicial.CargaLienzo.NumeracionCatan;
 import java.util.List;
 
 /**
- *
+ * Encargado de agrupar las losetas del juego del catan y su informacion
  * @author Brian
  */
 public class Losetario {
@@ -21,7 +21,7 @@ public class Losetario {
     }
 
     /**
-     * Busca y devuelve el ID del ladron de su loseta en la lista de losetas
+     * Busca y devuelve el ID inicial del ladron de su loseta en la lista de losetas
      * 
      * @return  Si no lo encontro devuelve cero
      */
@@ -35,14 +35,25 @@ public class Losetario {
         return id;
     }
 
+    /**
+     * Obtiene el id de la loseta donde se encuentra el ladron
+     * @return 
+     */
     public int getIdLadron() {
         return idLadron;
     }
     
+    /**
+     * Coloca al ladron en el id designado por parametro
+     * @param id 
+     */
     public void setIdLadron(int id){
         this.idLadron = id;
     }
     
+    /**
+     * Muestra por pantalla las losetas del losetario
+     */
     public void showLosetasGeneradas(){
         System.out.println("Losetas generadas: ");
         for(Loseta l:this.listaLoseta){
@@ -50,6 +61,10 @@ public class Losetario {
         }
     }
 
+    /**
+     * configura los numeros que aparece en cada loseta del losetario
+     * @param ordenNumerosLosetario 
+     */
     public void configurarNumeros(List<NumeracionCatan> ordenNumerosLosetario) {
         boolean encontrado=false;
         for(NumeracionCatan nc: ordenNumerosLosetario){
@@ -64,6 +79,23 @@ public class Losetario {
             }
             encontrado=false;
         }
+    }
+
+    /**
+     * Devuelve el numero de la loseta segun su id
+     * @param id
+     * @return 
+     */
+    public String getNumeroLosetaXid(int id) {
+        return this.listaLoseta.stream().filter(loseta -> loseta.getId()==id).findFirst().get().getNumeroLoseta();
+    }
+
+    /**
+     * Devuelve la Loseta donde esta el ladron actualmente
+     * @return 
+     */
+    public Loseta getLosetaLadron() {
+        return this.listaLoseta.stream().filter(loseta -> loseta.estaLadronEnLoseta()).findFirst().get();
     }
     
     
