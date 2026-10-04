@@ -4,7 +4,6 @@
  */
 package Entities.Cartografia.Visual;
 
-import Entities.Cartografia.Coordenada;
 import Entities.CargaInicial.CargaLienzo.NumeracionCatan;
 import Enumerados.Zona;
 import java.util.HashMap;
@@ -16,6 +15,7 @@ import java.util.Map;
  * @author Brian
  */
 public class Lienzo {
+
     private ElementoLienzo[][] elemento;
     private int altoLienzo;
     private int anchoLienzo;
@@ -33,121 +33,163 @@ public class Lienzo {
     public ElementoLienzo getElementoXcoordenada(int fila, int columna) {
         return this.elemento[fila][columna];
     }
-     
+
     public ElementoLienzo getElementoXcoordenada(Coordenada c) {
         return this.elemento[c.getFila()][c.getColumna()];
     }
-    
-    public int getIdXcoordenada(int fila, int columna){
+
+    public int getIdXcoordenada(int fila, int columna) {
         return this.elemento[fila][columna].getId();
     }
-    
-    public ElementoLienzo getElementoXid(int id){
+
+    public ElementoLienzo getElementoXid(int id) {
         return this.getElementoXcoordenada(this.tablaId.get(id));
     }
-    
-    public void showTablaID(){
+
+    public void showTablaID() {
         System.out.println("\ntabla id:\n");
-        this.tablaId.forEach((clave,valor)->
-        {
-            System.out.println("clave: "+clave+" valor: "+valor);
+        this.tablaId.forEach((clave, valor)
+                -> {
+            System.out.println("clave: " + clave + " valor: " + valor);
         });
     }
-    
+
     /*
     muestra por pantalla los ID de donde estan ubicados los NUMEROS de cada loseta
-    */
-    public void showIDlosetas(){
+     */
+    public void showIDlosetas() {
         System.out.println(" ID de losetas: ");
-        
-        for (int i=0; i<altoLienzo; i++){
-            for(int j=0; j<anchoLienzo; j++){
-                if (esNumeroLoseta(this.elemento[i][j])){
-                    System.out.print("["+this.elemento[i][j].getId()+"], ");
+
+        for (int i = 0; i < altoLienzo; i++) {
+            for (int j = 0; j < anchoLienzo; j++) {
+                if (esNumeroLoseta(this.elemento[i][j])) {
+                    System.out.print("[" + this.elemento[i][j].getId() + "], ");
                 }
             }
             System.out.println("");
         }
     }
-    
-    public void showIDUbicaciones(){
+
+    public void showIDUbicaciones() {
         System.out.println(" ID de ubicaciones: ");
-        
-        for (int i=0; i<altoLienzo; i++){
-            for(int j=0; j<anchoLienzo; j++){
-                if (esUbicacion(this.elemento[i][j])){
-                    System.out.print("["+this.elemento[i][j].getId()+"] ");
+
+        for (int i = 0; i < altoLienzo; i++) {
+            for (int j = 0; j < anchoLienzo; j++) {
+                if (esUbicacion(this.elemento[i][j])) {
+                    System.out.print("[" + this.elemento[i][j].getId() + "] ");
                 }
             }
             System.out.println("");
         }
     }
-    
-    public void showCoordenadalosetas(){
+
+    public void showCoordenadaLosetas() {
         System.out.println(" Coordenadas en Lienzo de losetas: ");
 
-        for (int i=0; i<altoLienzo; i++){
-            for(int j=0; j<anchoLienzo; j++){
-                if (esNumeroLoseta(this.elemento[i][j])){
-                    System.out.print("["+i+"]["+j+"], ");
+        for (int i = 0; i < altoLienzo; i++) {
+            for (int j = 0; j < anchoLienzo; j++) {
+                if (esNumeroLoseta(this.elemento[i][j])) {
+                    System.out.print("[" + i + "][" + j + "], ");
                 }
             }
             System.out.println("");
         }
     }
-    
-    
+
     public void showMapa() {
         System.out.println("");
         System.out.println("  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21");
-        for (int i=0; i<this.altoLienzo; i++){
-            System.out.print(i+1+" ");
-            for (int j=0; j<this.anchoLienzo; j++){
-                if (this.elemento[i][j]!=null){
-                     System.out.print(this.elemento[i][j].getSimbolo()+" ");
+        for (int i = 0; i < this.altoLienzo; i++) {
+            System.out.print(i + 1 + " ");
+            for (int j = 0; j < this.anchoLienzo; j++) {
+                if (this.elemento[i][j] != null) {
+                    System.out.print(this.elemento[i][j].getSimbolo() + " ");
                 }
             }
             System.out.println("");
         }
         System.out.println("");
     }
-    
+
     public void showMapaPintado() {
+        this.aplicarConfiguracionVisualConsola();
+        System.out.println("");
+        System.out.println("MAPA BRIAN");
         System.out.println("");
         System.out.println("    1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21");
-        for (int i=0; i<this.altoLienzo; i++){
-            if (i<9){
-                System.out.print(i+1+"   ");   
-            }else{
-                System.out.print(i+1+"  ");   
+        for (int i = 0; i < this.altoLienzo; i++) {
+            if (i < 9) {
+                System.out.print(i + 1 + "   ");
+            } else {
+                System.out.print(i + 1 + "  ");
 
             }
-            for (int j=0; j<this.anchoLienzo; j++){
+            for (int j = 0; j < this.anchoLienzo; j++) {
                 ElementoLienzo elemento = this.elemento[i][j];
-                if (elemento!=null){
-                     System.out.print(this.pintor.pintarElemento(elemento));
-                     if(elemento.getSimbolo().matches("[0-9]{2,}")){
-                         j++;
-                     }
+                if (elemento != null) {
+                    System.out.print(this.pintor.pintarElemento(elemento));
+                    if (elemento.getSimbolo().matches("[0-9]{2,}")) {
+                        j++;
+                    }
                 }
             }
             System.out.println("");
         }
         System.out.println("");
     }
-    
-    
-    
-/**
- * obtiene el alto del mapa
- * @return altoLienzo
- */
+
+    public void showMapaPintadoC() {
+        this.aplicarConfiguracionVisualConsola();
+        System.out.println("");
+        System.out.println("MAPA COLO");
+        System.out.println("");
+        System.out.println("     1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21");
+        for (int i = 0; i < this.altoLienzo; i++) {
+            if (i < 9) {
+                System.out.print(i + 1 + "   ");
+            } else {
+                System.out.print(i + 1 + "  ");
+
+            }
+            for (int j = 0; j < this.anchoLienzo; j++) {
+                ElementoLienzo elemento = this.elemento[i][j];
+                if (elemento != null) {
+                    if (!elemento.getSimbolo().trim().equals("")) {
+
+                        System.out.print(this.pintor.pintarElemento(elemento, i, j));
+                        if (elemento.getSimbolo().matches("[0-9]{2,}")) {
+                            j++;
+                        }
+                    }
+                }
+            }
+            System.out.println("");
+        }
+        System.out.println("");
+    }
+
+    private void aplicarConfiguracionVisualConsola() {
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            try {
+                new ProcessBuilder("cmd", "/c", "echo").inheritIO().start().waitFor();
+            } catch (Exception e) {
+                // Si falla, el programa continúa normalmente
+            }
+        }
+    }
+
+    /**
+     * obtiene el alto del mapa
+     *
+     * @return altoLienzo
+     */
     public int getAltoLienzo() {
         return altoLienzo;
     }
 
     /**
      * obtiene el ancho del mapa
+     *
      * @return anchoLienzo
      */
     public int getAnchoLienzo() {
@@ -162,41 +204,47 @@ public class Lienzo {
         return elementoLienzo.getTipoZona() == Zona.UBICACION;
     }
 
-    /** SIN USO, POSIBLEMENTE SE BORRE
-     * @return  MAP<COORDENADA,INTEGER> */
-    public Map<Coordenada,Integer> getNumeroLosetaXcoordenada() {
-        Map<Coordenada,Integer> mapa = new HashMap<>();
-        
-        for (int i=0; i<this.altoLienzo; i++){
-            for (int j=0; j<this.anchoLienzo; j++){
-                Coordenada cord = new Coordenada(i,j);
-                if (this.elemento[i][j].getTipoZona() == Zona.LOSETA){
+    /**
+     * SIN USO, POSIBLEMENTE SE BORRE
+     *
+     * @return MAP<COORDENADA,INTEGER>
+     */
+    public Map<Coordenada, Integer> getNumeroLosetaXcoordenada() {
+        Map<Coordenada, Integer> mapa = new HashMap<>();
+
+        for (int i = 0; i < this.altoLienzo; i++) {
+            for (int j = 0; j < this.anchoLienzo; j++) {
+                Coordenada cord = new Coordenada(i, j);
+                if (this.elemento[i][j].getTipoZona() == Zona.LOSETA) {
                     int numero = Integer.parseInt(this.elemento[i][j].getSimbolo());
-                    mapa.put(cord,numero);
+                    mapa.put(cord, numero);
                 }
             }
         }
         return mapa;
     }
-    
+
     /**
      * asigna el numero de loseta segun su id
+     *
      * @param id
-     * @param numero 
+     * @param numero
      */
-    public void asignarNumeroLoseta(int id, String numero){
+    public void asignarNumeroLoseta(int id, String numero) {
         Coordenada coordenada = this.tablaId.get(id);
         this.elemento[coordenada.getFila()][coordenada.getColumna()].setSimbolo(numero);
     }
 
     /**
-     * configura los numeros del juego al inicio de la partida para preparar el tablero
-     * @param ordenNumerosLosetario 
+     * configura los numeros del juego al inicio de la partida para preparar el
+     * tablero
+     *
+     * @param ordenNumerosLosetario
      */
     public void configurarNumeros(List<NumeracionCatan> ordenNumerosLosetario) {
-        for (NumeracionCatan n : ordenNumerosLosetario){
+        for (NumeracionCatan n : ordenNumerosLosetario) {
             this.asignarNumeroLoseta(n.getId(), n.getNumeroLoseta());
         }
     }
-    
+
 }

@@ -4,20 +4,15 @@
  */
 package Entities.CargaInicial.TarjetaCostos;
 
-import Entities.CargaInicial.TarjetaCostos.CostoCamino;
-import Entities.CargaInicial.TarjetaCostos.CostoCastillo;
-import Entities.CargaInicial.TarjetaCostos.CostoPoblado;
-import Entities.CargaInicial.TarjetaCostos.TarjetaDeCostes;
-
 /**
  *
  * @author Brian
  */
-public class CargaTarjetaCostes {
+public class CargaTarjetaDeCostes {
         /* TARJETA DE COSTOS */
     private TarjetaDeCostes tarjeta;
 
-    public CargaTarjetaCostes() {
+    public CargaTarjetaDeCostes() {
         this.tarjeta = new TarjetaDeCostes(new CostoCamino(), new CostoPoblado(), new CostoCastillo());
     }
     

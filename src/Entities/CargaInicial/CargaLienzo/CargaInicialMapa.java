@@ -4,7 +4,7 @@
  */
 package Entities.CargaInicial.CargaLienzo;
 
-import Entities.Cartografia.Loseta;
+
 import Entities.Cartografia.Losetario;
 import Entities.Cartografia.Visual.Lienzo;
 import java.util.List;

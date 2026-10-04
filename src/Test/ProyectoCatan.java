@@ -5,8 +5,16 @@
 package Test;
 
 
-import Entities.CargaJuegoInicial;
+import Entities.FaseConfiguracionJugador;
+import Entities.FaseColocacionInicial;
+import Entities.CargaInicial.TarjetaCostos.TarjetaDeCostes;
+import Entities.ConfiguracionMapa;
+import Entities.CargaInicial.TarjetaCostos.CargaTarjetaDeCostes;
+import Entities.Cartografia.Cartografo;
+import Entities.CreadorJugador;
 import Entities.Juego;
+import Entities.Jugador.Jugador;
+import java.util.List;
 
 
 /**
@@ -21,23 +29,25 @@ public class ProyectoCatan {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        if (System.getProperty("os.name").toLowerCase().contains("win")) {
-        try {
-            new ProcessBuilder("cmd", "/c", "echo").inheritIO().start().waitFor();
-        } catch (Exception e) {
-            // Si falla, el programa continúa normalmente
-        }
-    }
-        CargaJuegoInicial cargaInicial =  new CargaJuegoInicial();
-        Juego catan =cargaInicial.generarConfiguracionInicialJuego();
-        //catan.faseCreacionJugadoresPrueba();
-        // catanPrueba.faseColocacion();
+        
+        
+        ConfiguracionMapa mapaInicial =  new ConfiguracionMapa();
+        Cartografo cartografo = mapaInicial.configurarMapa();
+        TarjetaDeCostes tarjeta = new CargaTarjetaDeCostes().generarTarjetaDeCostes();
+        List<Jugador> listaJugadores = new CreadorJugador().faseCreacionJugadoresPrueba();
+        
+                cartografo.mostrarMapa();
+                
+        FaseConfiguracionJugador configuracionJugador = new FaseConfiguracionJugador(listaJugadores);
+        configuracionJugador.ordenarJugadores();
+        
+        FaseColocacionInicial colocacionInicial = new FaseColocacionInicial(cartografo, listaJugadores);
+        colocacionInicial.realizarColocacion();
+        
+        Juego catan = new Juego(listaJugadores,cartografo,tarjeta);
+//        catan.jugar();
+//        catan.anunciarGanador();
+
     }
         
 }
-
-//        catan.faseCreacionJugadores();
-//        catan.faseEleccionOrdenJugadores();
-//        catan.faseColocacion();
-//        catan.jugar();
-//        catan.anunciarGanador();

@@ -4,7 +4,7 @@
  */
 package Entities.CargaInicial.CargaLienzo;
 
-import Entities.Cartografia.Coordenada;
+import Entities.Cartografia.Visual.Coordenada;
 import Entities.Cartografia.Visual.ElementoLienzo;
 import Entities.Cartografia.Visual.Lienzo;
 import Enumerados.Zona;

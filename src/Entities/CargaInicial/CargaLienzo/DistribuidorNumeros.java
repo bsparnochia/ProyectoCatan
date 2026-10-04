@@ -4,7 +4,7 @@
  */
 package Entities.CargaInicial.CargaLienzo;
 
-import Entities.Cartografia.Coordenada;
+import Entities.Cartografia.Visual.Coordenada;
 import Entities.Cartografia.Visual.Lienzo;
 import java.io.BufferedReader;
 import java.io.FileReader;

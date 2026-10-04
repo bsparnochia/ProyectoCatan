@@ -27,9 +27,10 @@ public class Cartografo {
 
     
     public void mostrarMapa(){
-        this.lienzo.showMapaPintado();
+        //this.lienzo.showMapaPintado();
         System.out.println("El ladron esta en la loseta: "+this.losetario.getLosetaLadron().getNumeroLoseta());
         System.out.println("Recurso: "+this.losetario.getLosetaLadron().getRecurso());
+        this.lienzo.showMapaPintadoC();
     }
 
 //    public Recurso getRecursoSegunTirada(int dados){
@@ -67,6 +68,14 @@ public class Cartografo {
 //        actual.setConstruccion(Construccion.POBLADO);
 //        actual.setDueño(numeroJugador);
 //    }
+
+    public boolean ubicacionEstaOcupada(int fila, int columna) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void ocuparUbicacion(int numeroJugador, int fila, int columna) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
 
     
