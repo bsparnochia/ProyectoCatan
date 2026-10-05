@@ -5,6 +5,8 @@
 package Entities.Cartografia.Visual;
 
 import Entities.CargaInicial.CargaLienzo.NumeracionCatan;
+import Enumerados.Color;
+import Enumerados.Recurso;
 import Enumerados.Zona;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +42,9 @@ public class Lienzo {
 
     public int getIdXcoordenada(int fila, int columna) {
         return this.elemento[fila][columna].getId();
+    }
+    public int getIdXcoordenada(Coordenada c) {
+        return this.elemento[c.getFila()][c.getColumna()].getId();
     }
 
     public ElementoLienzo getElementoXid(int id) {
@@ -126,11 +131,13 @@ public class Lienzo {
             }
             for (int j = 0; j < this.anchoLienzo; j++) {
                 ElementoLienzo elemento = this.elemento[i][j];
-                if (elemento != null) {
-                    System.out.print(this.pintor.pintarElemento(elemento));
-                    if (elemento.getSimbolo().matches("[0-9]{2,}")) {
-                        j++;
-                    }
+                //System.out.print(this.pintor.pintarElemento(elemento));
+                if(elemento.getTipoZona()== Zona.LOSETA){
+                    System.out.print(this.pintor.pintarElementoNumeroLoseta(elemento)); 
+                }else if(elemento.getTipoZona() == Zona.CAMINO){
+                    System.out.print(this.pintor.pintarElementoCamino(elemento));
+                }else{
+                    System.out.print(this.pintor.pintarElementoEstructura(elemento));
                 }
             }
             System.out.println("");
@@ -153,15 +160,13 @@ public class Lienzo {
             }
             for (int j = 0; j < this.anchoLienzo; j++) {
                 ElementoLienzo elemento = this.elemento[i][j];
-                if (elemento != null) {
                     if (!elemento.getSimbolo().trim().equals("")) {
 
-                        System.out.print(this.pintor.pintarElemento(elemento, i, j));
-                        if (elemento.getSimbolo().matches("[0-9]{2,}")) {
+                        System.out.print(this.pintor.pintarElementoEstructura(elemento, i, j));
+                        if (elemento.getSimbolo().matches("[0-9]{2,}|J|J1|J2|J3|J4")) {
                             j++;
                         }
                     }
-                }
             }
             System.out.println("");
         }
@@ -245,6 +250,21 @@ public class Lienzo {
         for (NumeracionCatan n : ordenNumerosLosetario) {
             this.asignarNumeroLoseta(n.getId(), n.getNumeroLoseta());
         }
+    }
+
+    public void pintarPoblado(Coordenada c, int numeroJugador, Color color) {
+        ElementoLienzo elemento = this.getElementoXcoordenada(c);
+        elemento.setSimbolo("J"+numeroJugador);
+        elemento.setColor(color);
+    }
+
+    public void asignarColorLoseta(int id, Recurso recurso) {
+        this.getElementoXid(id).setColor(this.pintor.getColorSegunRecurso(recurso));
+    }
+
+    public void pintarCamino(Coordenada c, Color color) {
+        ElementoLienzo elemento = this.getElementoXcoordenada(c);
+        elemento.setColor(color);
     }
 
 }

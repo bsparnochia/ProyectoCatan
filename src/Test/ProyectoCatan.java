@@ -5,15 +5,18 @@
 package Test;
 
 
+
 import Entities.FaseConfiguracionJugador;
 import Entities.FaseColocacionInicial;
 import Entities.CargaInicial.TarjetaCostos.TarjetaDeCostes;
 import Entities.ConfiguracionMapa;
 import Entities.CargaInicial.TarjetaCostos.CargaTarjetaDeCostes;
 import Entities.Cartografia.Cartografo;
+import Entities.ConfiguracionRegistroJugadas;
 import Entities.CreadorJugador;
 import Entities.Juego;
 import Entities.Jugador.Jugador;
+import Entities.RegistroJugadas;
 import java.util.List;
 
 
@@ -36,13 +39,20 @@ public class ProyectoCatan {
         TarjetaDeCostes tarjeta = new CargaTarjetaDeCostes().generarTarjetaDeCostes();
         List<Jugador> listaJugadores = new CreadorJugador().faseCreacionJugadoresPrueba();
         
-                cartografo.mostrarMapa();
                 
         FaseConfiguracionJugador configuracionJugador = new FaseConfiguracionJugador(listaJugadores);
         configuracionJugador.ordenarJugadores();
+        configuracionJugador.mostrarJugadoresOrdenados();
         
-        FaseColocacionInicial colocacionInicial = new FaseColocacionInicial(cartografo, listaJugadores);
+        ConfiguracionRegistroJugadas configuracionRegistro = new ConfiguracionRegistroJugadas(listaJugadores);
+        List<RegistroJugadas> listadoRegistro = configuracionRegistro.generarListadoDeRegistroDeJugadas();
+        FaseColocacionInicial colocacionInicial = new FaseColocacionInicial(cartografo, listaJugadores,listadoRegistro);
         colocacionInicial.realizarColocacion();
+        cartografo.mostrarMapa();
+                configuracionJugador.mostrarJugadoresOrdenados();
+                configuracionRegistro.mostrarRegistro();
+
+
         
         Juego catan = new Juego(listaJugadores,cartografo,tarjeta);
 //        catan.jugar();

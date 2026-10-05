@@ -14,18 +14,20 @@ import java.util.List;
 public class Grafo {
 
     private List<Ubicacion> listaUbicaciones;
+    private List<Camino> listaCaminos;
     private Camino[][] matrizAdy;
     private int cantidadUbicaciones;
     private static final int POSICION_INEXISTENTE = -1;
     private static final int CANTIDAD_UBICACIONES_DEFAULT = 54;
 
-    public Grafo(List<Ubicacion> listaVertice, List<Camino> listaCamino) {
+    public Grafo(List<Ubicacion> listaVertice, List<Camino> listaCaminos) {
         this.listaUbicaciones = listaVertice;
+        this.listaCaminos = listaCaminos;
         this.cantidadUbicaciones = listaVertice.size();
         this.matrizAdy = new Camino[this.cantidadUbicaciones][this.cantidadUbicaciones];
 
         try {
-            for (Camino c : listaCamino) {
+            for (Camino c : listaCaminos) {
                 this.agregarCamino(c);
             }
         } catch (Exception e) {
@@ -34,18 +36,14 @@ public class Grafo {
 
     }
 
-    public Grafo(List<Ubicacion> listaVertice, int cantidadVertices) {
-        this.listaUbicaciones = listaVertice;
-        this.matrizAdy = new Camino[cantidadVertices][cantidadVertices];
-        this.cantidadUbicaciones = cantidadVertices;
+    public Ubicacion getUbicacionXid(int id){
+        return this.listaUbicaciones.get(this.buscarUbicacion(id));
     }
-
-    public Grafo() {
-        this.listaUbicaciones = new ArrayList<>();
-        this.matrizAdy = new Camino[CANTIDAD_UBICACIONES_DEFAULT][CANTIDAD_UBICACIONES_DEFAULT];
-        this.cantidadUbicaciones = CANTIDAD_UBICACIONES_DEFAULT;
+    
+    public Camino getCaminoXid(int id){
+        return this.listaCaminos.get(this.buscarCamino(id));
     }
-
+    
     /**
      * Busca el vertice en el listado de vertices del Grafo
      *
@@ -68,7 +66,7 @@ public class Grafo {
         return posicion;
     }
 
-    private boolean existeUbicacion(int nuevo) {
+    public boolean existeUbicacion(int nuevo) {
         return this.buscarUbicacion(nuevo) != POSICION_INEXISTENTE;
     }
 
@@ -85,13 +83,29 @@ public class Grafo {
     }
 
     /**
-     * Busca el arista segun un origen y un destino
+     * Busca el arista segun su ID
      *
      * @param origen
      * @param destino
      * @return devuelve una arista si encuentra resultado sino null
      * @throws Exception
      */
+    private int buscarCamino(int buscado) {
+        boolean encontrado = false;
+        int posicion = -1;// por defecto no la encontro
+        int i = 0;
+        while (!encontrado && i < this.listaCaminos.size()) {
+            int actual = this.listaCaminos.get(i).getIdCamino();
+            if (buscado == actual) {
+                encontrado = true;
+                posicion = i;
+            } else {
+                i++;
+            }
+        }
+        return posicion;
+    }
+    
     public Camino buscarCamino(int origen, int destino) {
         Camino buscado = null;
         try {
@@ -110,7 +124,7 @@ public class Grafo {
         return buscado;
     }
 
-    private boolean existeCamino(int origen, int destino) {
+    public boolean existeCamino(int origen, int destino) {
         return this.buscarCamino(origen, destino) != null;
     }
 
@@ -162,5 +176,6 @@ public class Grafo {
             }
         }
     }
+
 
 }

@@ -46,13 +46,11 @@ public class Camino {
         return idCamino;
     }
 
-    public void ocuparCamino() {
+    public void ocuparCamino(int jugadorDueño) {
         this.ocupado = true;
-    }
-
-    public void setJugadorDueño(int jugadorDueño) {
         this.jugadorDueño = jugadorDueño;
     }
+
 
     @Override
     public String toString() {

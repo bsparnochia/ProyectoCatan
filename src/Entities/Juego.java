@@ -10,7 +10,7 @@ import Entities.Cartografia.Grafo.Grafo;
 import Entities.Cartografia.Visual.Lienzo;
 import Entities.CargaInicial.TarjetaCostos.TarjetaDeCostes;
 import Entities.Jugador.Jugador;
-import Enumerados.ColorJugador;
+import Enumerados.Color;
 import Interfaces.I_LogicaJuego;
 import java.util.ArrayList;
 import java.util.List;

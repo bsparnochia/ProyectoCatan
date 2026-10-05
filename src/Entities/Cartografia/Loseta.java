@@ -65,6 +65,12 @@ public class Loseta {
         return recurso;
     }
 
+    public List<Integer> getUbicacionesLoseta() {
+        return ubicacionesLoseta;
+    }
+    
+    
+
 
     @Override
     public String toString() {

@@ -4,6 +4,8 @@
  */
 package Entities.Cartografia.Visual;
 
+import Enumerados.Color;
+import Enumerados.Recurso;
 import Enumerados.Zona;
 
 /**
@@ -14,12 +16,15 @@ public class ElementoLienzo {
     private int id;
     private Zona tipoZona;
     private String simbolo;
+    private Color colorDueño;
+
     
 
     public ElementoLienzo( int id, Zona tipoZona, String simbolo) {
         this.id = id;
         this.tipoZona = tipoZona;
         this.simbolo = simbolo;
+        this.colorDueño = Color.NEGRO;
     }
 
     public int getId() {
@@ -36,5 +41,17 @@ public class ElementoLienzo {
 
     public void setSimbolo(String simbolo) {
         this.simbolo = simbolo;
+    }
+
+    public void setColor(Color color) {
+        this.colorDueño = color;
+    }
+    
+    public Color getColor() {
+        return colorDueño;
+    }
+    
+    public boolean estaOcupada(){
+        return this.colorDueño != Color.NEGRO;
     }
 }

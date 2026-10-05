@@ -5,7 +5,7 @@
 package Entities;
 
 import Entities.Jugador.Jugador;
-import Enumerados.ColorJugador;
+import Enumerados.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -34,8 +34,8 @@ public class CreadorJugador {
      */
     public List<Jugador> faseCreacionJugadoresPrueba(){
 
-        this.listaJugadores.add(new Jugador(1,"Elute",ColorJugador.ROJO));
-        this.listaJugadores.add(new Jugador(2,"Pelu",ColorJugador.AZUL));
+        this.listaJugadores.add(new Jugador(1,"Elute",Color.ROJO));
+        this.listaJugadores.add(new Jugador(2,"Pelu",Color.AZUL));
         
         return listaJugadores;
     }
@@ -58,7 +58,7 @@ public class CreadorJugador {
             String nombre= sc.nextLine();
             System.out.println("Elija color disponible: ");
             mostrarColoresDisponibles();//implementar
-            ColorJugador color = elegirColorJugador();//implementar
+            Color color = elegirColorJugador();//implementar
             Jugador nuevoJugador = new Jugador(i,nombre,color);//creamos jugador
             listaJugadores.add(nuevoJugador);
         }
@@ -71,7 +71,7 @@ public class CreadorJugador {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private ColorJugador elegirColorJugador(){
+    private Color elegirColorJugador(){
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

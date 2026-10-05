@@ -5,6 +5,7 @@
 package Entities.CargaInicial.CargaLienzo;
 
 
+import Entities.Cartografia.Loseta;
 import Entities.Cartografia.Losetario;
 import Entities.Cartografia.Visual.Lienzo;
 import java.util.List;
@@ -35,7 +36,8 @@ public class CargaInicialMapa {
         //System.out.println("Loseta del ladron: "+idLadron);
         List<NumeracionCatan> ordenNumerosLosetario =this.distribuidor.distribuirNumerosEnLosetas(idLadron);
         lienzo.configurarNumeros(ordenNumerosLosetario);
-        losetario.configurarNumeros(ordenNumerosLosetario);        
+        losetario.configurarNumeros(ordenNumerosLosetario); 
+        this.configurarColoresLienzoSegunRecurso();
     }
     
     public Losetario crearLosetario(){
@@ -44,6 +46,12 @@ public class CargaInicialMapa {
     
     public Lienzo crearLienzo(){
         return this.lienzo;
+    }
+
+    private void configurarColoresLienzoSegunRecurso() {
+        for (Loseta l: this.losetario.getListaLoseta()){
+            this.lienzo.asignarColorLoseta(l.getId(),l.getRecurso());
+        }
     }
     
 }

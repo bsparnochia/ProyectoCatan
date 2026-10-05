@@ -8,6 +8,6 @@ package Enumerados;
  *
  * @author Brian
  */
-public enum ColorJugador {
-    ROJO,AZUL,VERDE,AMARILLO
+public enum Color {
+    ROJO,AZUL,VERDE,AMARILLO,NEGRO,ARCILLA,MADERA,PIEDRA,TRIGO,OVEJA
 }

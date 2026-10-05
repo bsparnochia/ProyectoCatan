@@ -4,8 +4,10 @@
  */
 package Entities.Jugador;
 
-import Enumerados.ColorJugador;
+import Enumerados.Color;
 import Enumerados.Recurso;
+import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -14,7 +16,7 @@ import Enumerados.Recurso;
 public class Jugador {
     private int numeroJugador;
     private String nombre;
-    private ColorJugador color;
+    private Color color;
     private int puntaje;
     private ManoDeCartas mano;
     private int cantidadCasas;
@@ -22,32 +24,19 @@ public class Jugador {
     //private int cantidadCaballeros;//queda ver como se implemanta esto mas adelante
     //private int cantidadCartaEspecial;//queda ver como se implemanta esto mas adelante
 
-    public Jugador(int numeroJugador, String nombre, ManoDeCartas recursosIniciales, int cantidadCasas, ColorJugador color) {
-        this.numeroJugador = numeroJugador;
-        this.nombre = nombre;
-        this.color = color;
-        this.puntaje = 0;
-        this.mano = recursosIniciales;
-        this.cantidadCasas = cantidadCasas;
-        this.cantidadCastillos = 0;
-        //this.cantidadCaballeros = 0;
-        //this.cantidadCartaEspecial = 0;
-    }
 
-    public Jugador(int numeroJugador, String nombre, ColorJugador color) {
+    public Jugador(int numeroJugador, String nombre, Color color) {
         this.numeroJugador = numeroJugador;
         this.nombre = nombre;
         this.color = color;
         this.puntaje = 0;
         this.mano = new ManoDeCartas();
-        this.cantidadCasas = 0;
-        this.cantidadCastillos = 0;
         //this.cantidadCaballeros = 0;
         //this.cantidadCartaEspecial = 0;
     }
     
     public int tirarDados(){
-        return 5; //ver que formula hay para tirar dados al azar
+        return new Random().nextInt(1, 13); 
     }
 
     public int getPuntaje() {
@@ -66,7 +55,7 @@ public class Jugador {
         return numeroJugador;
     }
 
-    public ColorJugador getColor() {
+    public Color getColor() {
         return color;
     }
 
@@ -81,22 +70,21 @@ public class Jugador {
     */
     public void levantarRecursosLoseta( Recurso r, int cantidad){
         this.mano.agregarRecurso(r, cantidad);
+    }    
+        /*
+    Levanta los recursos de un listado de recursos obtenidos
+    */
+    public void levantarRecursosLoseta( List<Recurso> lista){
+        for( Recurso r: lista){
+            this.mano.agregarRecurso(r);
+        }
+    }    
+    
+    @Override
+    public String toString() {
+        return "Jugador{" + "numeroJugador=" + numeroJugador + ", nombre=" + nombre + ", color=" + color + ", puntaje=" + puntaje + ", \nmano=" + mano + '}';
     }
-
-    public int getCantidadCasas() {
-        return cantidadCasas;
-    }
-
-    public void setCantidadCasas(int cantidadCasas) {
-        this.cantidadCasas = cantidadCasas;
-    }
-
-    public int getCantidadCastillos() {
-        return cantidadCastillos;
-    }
-
-    public void setCantidadCastillos(int cantidadCastillos) {
-        this.cantidadCastillos = cantidadCastillos;
-    }
+    
+    
     
 }

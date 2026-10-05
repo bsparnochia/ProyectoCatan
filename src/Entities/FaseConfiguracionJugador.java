@@ -22,6 +22,14 @@ public class FaseConfiguracionJugador {
     public void ordenarJugadores() {
         System.out.println("--PROCESO DE ORDENAR PENDIENTE DE IMPLEMENTAR!--");
     }
+
+    public void mostrarJugadoresOrdenados() {
+        System.out.println("-->> LISTA DE JUGADORES:");
+        for(Jugador j: listaJugadores){
+            System.out.println(j.toString());
+            System.out.println("");
+        }
+    }
     
     
 }

@@ -48,6 +48,26 @@ public class ManoDeCartas {
         }
     }
     
+    public void agregarRecurso( Recurso r){
+        switch(r){
+            case Recurso.ARCILLA: 
+        this.arcilla++;
+        break;
+            case Recurso.MADERA:
+        this.madera++;
+        break;
+            case Recurso.OVEJA:
+        this.oveja++;
+        break;
+            case Recurso.TRIGO:
+        this.trigo++;
+        break;
+            case Recurso.PIEDRA:
+        this.piedra++;
+        break;
+        }
+    }
+    
     /**
      * Posible tema para consultar en la IA para aprender a hacer mas codigo-> si conviene hacer un bool como bandera si quiero agregar o utilizar recursos
      * ya que se ve que es la misma estructura, nomas que en vez de sumar, resta.
@@ -92,6 +112,11 @@ public class ManoDeCartas {
 
     public int getOveja() {
         return oveja;
+    }
+
+    @Override
+    public String toString() {
+        return "ManoDeCartas{" + "arcilla=" + arcilla + ", trigo=" + trigo + ", piedra=" + piedra + ", madera=" + madera + ", oveja=" + oveja + '}';
     }
     
 }

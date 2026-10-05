@@ -24,7 +24,7 @@ public class Ubicacion {
     }
     
     public boolean estaOcupada(){
-        return this.construccion == Construccion.VACIO;
+        return this.construccion != Construccion.VACIO;
     }
     public Construccion getConstruccion() {
         return construccion;
@@ -48,7 +48,7 @@ public class Ubicacion {
 
     @Override
     public String toString() {
-        return "Ubicacion{" + "construccion=" + construccion + ", due\u00f1o=" + dueño + ", id=" + id + '}';
+        return "Ubicacion{" + "construccion=" + construccion + ", duenio=" + dueño + ", id=" + id + "}\n";
     }
     
     
