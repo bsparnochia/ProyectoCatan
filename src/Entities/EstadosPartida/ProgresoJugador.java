@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entities;
+package Entities.EstadosPartida;
 
 import Entities.Cartografia.Grafo.Camino;
 import Entities.Cartografia.Grafo.Ubicacion;
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Brian
  */
-public class RegistroJugadas {
+public class ProgresoJugador {
 
     private int numeroJugador;
     private List<Ubicacion> ubicacionesConquistadas;
@@ -23,7 +23,7 @@ public class RegistroJugadas {
     private int cantidadCaminos;
     private int puntaje;
 
-    public RegistroJugadas(int numeroJugador) {
+    public ProgresoJugador(int numeroJugador) {
         this.numeroJugador = numeroJugador;
         this.ubicacionesConquistadas = new ArrayList();
         this.caminosConstruidos = new ArrayList();
@@ -64,6 +64,10 @@ public class RegistroJugadas {
     @Override
     public String toString() {
         return "RegistroJugadas{" + "N=" + numeroJugador + ", \nubicacionesConquistadas=" + ubicacionesConquistadas + ", \ncaminosConstruidos=" + caminosConstruidos + ", \ncantidadPoblados=" + cantidadPoblados + ", cantidadCastillos=" + cantidadCastillos + ", cantidadCaminos=" + cantidadCaminos + '}';
+    }
+
+    public int consultarPuntaje() {
+        return this.puntaje;
     }
 
 }

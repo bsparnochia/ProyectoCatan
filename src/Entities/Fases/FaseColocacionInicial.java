@@ -2,13 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entities;
+package Entities.Fases;
 
+import Entities.EstadosPartida.ProgresoJugador;
 import Entities.Cartografia.Cartografo;
 import Entities.Cartografia.Visual.Coordenada;
+import Entities.EstadosPartida.HistorialDeProgresos;
 import Entities.Jugador.Jugador;
+import Entities.Mensajes;
+import Interfaces.I_SelectorColocacion;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  *
@@ -18,26 +21,29 @@ public class FaseColocacionInicial {
 
     private Cartografo mapa;
     private List<Jugador> listaJugadores;
-    private List<RegistroJugadas> registro;
+    private HistorialDeProgresos registro;
+    private Mensajes mensaje;
+    private I_SelectorColocacion selector;
 
-    public FaseColocacionInicial(Cartografo mapa, List<Jugador> listaJugadores, List<RegistroJugadas> listadoRegistro) {
+    public FaseColocacionInicial(Cartografo mapa, List<Jugador> listaJugadores,
+            HistorialDeProgresos listadoRegistro, I_SelectorColocacion selector) {
         this.mapa = mapa;
         this.listaJugadores = listaJugadores;
-        this.registro = listadoRegistro; 
+        this.registro = listadoRegistro;
+        this.selector = selector;
+        this.mensaje = new Mensajes();
     }
 
-    public List<RegistroJugadas> realizarColocacion() {
+    public void realizarColocacion() {
         /*Se realiza la primera ronda de colocacion de fichas en el tablero*/
-        System.out.println("--Primera Ronda de Colocacion--/n/n");
+        System.out.println("--Primera Ronda de Colocacion--\n\n");
         this.realizarRondaDeColocacionDirecta();
 
         /*Se realiza la segunda ronda de colocacion de fichas en el tablero con
         con el listado de jugadores invertido segun las reglas del Catan
          */
-        System.out.println("--Segunda Ronda de Colocacion--/n/n");
+        System.out.println("--Segunda Ronda de Colocacion--\n\n");
         this.realizarRondaDeColocacionInversa();
-        
-        return this.registro;
     }
 
     private void realizarRondaDeColocacionDirecta() {
@@ -60,49 +66,41 @@ public class FaseColocacionInicial {
     private void procesoDeColacion(int indice) {
         Jugador jugadorActual = this.listaJugadores.get(indice);
         System.out.println("turno de: " + jugadorActual.getNombre());
-        this.mapa.mostrarMapa();
         this.elegirUbicacionJugador(jugadorActual);
-        this.mapa.mostrarMapa();
         this.elegirCaminoJugador(jugadorActual);
     }
 
+
     private void elegirUbicacionJugador(Jugador jugadorActual) {
+        this.mapa.mostrarMapa();
         Coordenada coordenada = leerUbicacion();
 
-        RegistroJugadas registroActual = this.registro.stream()
-                .filter(r -> r.getNumeroJugador()== jugadorActual.getNumeroJugador())
-                .findFirst()
-                .orElseThrow(()-> 
-                        new IllegalStateException("no existe el registro de jugador: "+jugadorActual.getNombre())
-                );
+        ProgresoJugador registroActual = this.registro.getProgresoSegunNumeroJugador(jugadorActual.getNumeroJugador());
 
-        registroActual.agregarUbicacionConquistada(this.mapa.ocuparUbicacion(coordenada,jugadorActual.getNumeroJugador(),jugadorActual.getColor()));
+        registroActual.agregarUbicacionConquistada(this.mapa.ocuparUbicacion(coordenada, jugadorActual.getNumeroJugador(), jugadorActual.getColor()));
         jugadorActual.levantarRecursosLoseta(mapa.getRecursoXCoordenada(coordenada));
     }
 
+
     /**
-     * Lee las coordenadas de ubicacion seleccionadas por usuario y se asegura que sean correctas
+     * Lee las coordenadas de ubicacion seleccionadas por usuario y se asegura
+     * que sean correctas
+     *
      * @param jugadorActual
      * @return devuelve las coordenadas de una ubicacion valida del mapa
      */
     private Coordenada leerUbicacion() {
         boolean ubicacionCorrecta = false;
-        Scanner sc = new Scanner(System.in);
         Coordenada buscada = null;
 
         System.out.println("-----CONSTRUCCION POBLADO INICIAL-----");
         while (!ubicacionCorrecta) {
-            System.out.println("elija fila: ");
-            int fila = sc.nextInt();
-            fila--;
-            System.out.println("elija columna: ");
-            int columna = sc.nextInt();
-            columna--;
+            Coordenada c = this.selector.seleccionarUbicacion();
 
-            if (this.mapa.esUbicacionValida(fila, columna)) {
+            if (this.mapa.esUbicacionValida(c.getFila(), c.getColumna())) {
                 System.out.println("ubicacion conquistada!!! ");
                 ubicacionCorrecta = true;
-                buscada = new Coordenada(fila, columna);
+                buscada = c;
             } else {
                 System.out.println("");
                 System.out.println("ERROR! ubicacion incorrecta, ingrese nuevamente:");
@@ -112,38 +110,27 @@ public class FaseColocacionInicial {
         }
         return buscada;
     }
-    
-    private void elegirCaminoJugador(Jugador jugadorActual){
+
+    private void elegirCaminoJugador(Jugador jugadorActual) {
+        this.mapa.mostrarMapa();
         Coordenada coordenada = leerCamino();
 
-        RegistroJugadas registroActual = this.registro.stream()
-                .filter(r -> r.getNumeroJugador()== jugadorActual.getNumeroJugador())
-                .findFirst()
-                .orElseThrow(()-> 
-                        new IllegalStateException("no existe el registro de jugador: "+jugadorActual.getNombre())
-                );
-
-        registroActual.agregarCaminoConstruido(this.mapa.ocuparCamino(coordenada,jugadorActual.getNumeroJugador(),jugadorActual.getColor()));
+        ProgresoJugador registroActual = this.registro.getProgresoSegunNumeroJugador(jugadorActual.getNumeroJugador());
+        registroActual.agregarCaminoConstruido(this.mapa.ocuparCamino(coordenada, jugadorActual.getNumeroJugador(), jugadorActual.getColor()));
     }
 
     private Coordenada leerCamino() {
         boolean caminoCorrecto = false;
-        Scanner sc = new Scanner(System.in);
         Coordenada buscada = null;
 
         System.out.println("-----CONSTRUCCION CAMINO INICIAL-----");
         while (!caminoCorrecto) {
-            System.out.println("elija fila: ");
-            int fila = sc.nextInt();
-            fila--;
-            System.out.println("elija columna: ");
-            int columna = sc.nextInt();
-            columna--;
+            Coordenada c = this.selector.seleccionarCamino();
 
-            if (this.mapa.esCaminoValido(fila, columna)) {
+            if (this.mapa.esCaminoValido(c.getFila(), c.getColumna())) {
                 System.out.println("Camino pavimentado y construidooo!!! ");
                 caminoCorrecto = true;
-                buscada = new Coordenada(fila, columna);
+                buscada = c;
             } else {
                 System.out.println("");
                 System.out.println("ERROR! CAMINO incorrecto, ingrese nuevamente:");

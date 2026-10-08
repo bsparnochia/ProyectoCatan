@@ -4,15 +4,17 @@
  */
 package Entities;
 
-import Entities.Cartografia.Visual.Dibujante;
+import Entities.Fases.FaseTirada;
 import Entities.Cartografia.Cartografo;
-import Entities.Cartografia.Grafo.Grafo;
-import Entities.Cartografia.Visual.Lienzo;
 import Entities.CargaInicial.TarjetaCostos.TarjetaDeCostes;
+import Entities.EstadosPartida.HistorialDeProgresos;
+import Entities.Fases.FaseChequeoEstadoJuego;
+import Entities.Fases.FaseComercio;
+import Entities.Fases.FaseConstruccion;
+import Entities.Fases.FaseJugadaEspecial;
+import Entities.Fases.FaseLadron;
 import Entities.Jugador.Jugador;
-import Enumerados.Color;
-import Interfaces.I_LogicaJuego;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,37 +22,149 @@ import java.util.Scanner;
  *
  * @author Brian
  */
-public class Juego{
-    
-     private Cartografo mapa;
-     private TarjetaDeCostes tarjeta;
-     private List <Jugador> listaJugadores;
-     private Jugador jugadorActual;
-     private Jugador ganador;
-     private Scanner sc;
-     private final int NO_DEFINIDO = 0;
-          
-    public Juego(List<Jugador> listaJugadores, Cartografo mapa, TarjetaDeCostes tarjeta){
-       this.listaJugadores = listaJugadores;
-       sc = new Scanner(System.in);
-       this.jugadorActual = null;
-       this.ganador = null;
-       this.mapa = mapa;
-       this.tarjeta = tarjeta;
-    }
-    
-    
+public class Juego {
 
+    private FaseTirada faseTirada;
+    private FaseLadron faseLadron;
+    private FaseComercio faseComercio;
+    private FaseConstruccion faseConstruccion;
+    private FaseJugadaEspecial faseJugadaEspecial;
+    private FaseChequeoEstadoJuego faseChequeo;
+
+    private List<Jugador> listaJugadores;
+    private Mensajes mensajes;
+    private Jugador jugadorActual;
+
+    public Juego(List<Jugador> listaJugadores, Cartografo mapa, TarjetaDeCostes tarjeta, HistorialDeProgresos registroProgreso) {
+        this.faseTirada = new FaseTirada(mapa, listaJugadores, registroProgreso);
+        this.faseLadron = new FaseLadron(mapa, listaJugadores);
+        this.faseComercio = new FaseComercio(listaJugadores, tarjeta);
+        this.faseConstruccion = new FaseConstruccion(mapa, listaJugadores, registroProgreso, tarjeta);
+        this.faseJugadaEspecial = new FaseJugadaEspecial(mapa, listaJugadores, registroProgreso);
+        this.faseChequeo = new FaseChequeoEstadoJuego(mapa,listaJugadores, registroProgreso);
+
+        this.listaJugadores = listaJugadores;
+        this.jugadorActual = null;
+        this.mensajes = new Mensajes();
+    }
 
     public void jugar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        boolean hayGanador = false;
+        while (!hayGanador) {
+            Iterator<Jugador> turno = this.listaJugadores.iterator();
+            while (!hayGanador && turno.hasNext()) {
+                this.jugadorActual = turno.next();
+                boolean turnoTerminado = false;
+                while (!turnoTerminado) {
+                    this.elegirAccionInicial();
+                    turnoTerminado = this.elegirOpcionMenuJuego();
+                }
+                //busca si el jugador llego a 10 puntos
+                hayGanador = true;
+            }
+        }
+        this.anunciarGanador(this.jugadorActual.getNombre());
     }
 
+    private void elegirAccionInicial() {
+        int opcion;
+        boolean opcionIncorrecta = true;
+        Scanner sc = new Scanner(System.in);
 
-    public void anunciarGanador() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        while (opcionIncorrecta) {
+
+            this.mensajes.mostrarMenuInicioTurnoJugador();
+            opcion = sc.nextInt();
+            switch (opcion) {
+                case 1:
+                    this.faseTirada.lanzarDados(this.jugadorActual);
+                    opcionIncorrecta = false;//usar jugadorActual
+                    break;
+                case 2:
+                    this.faseJugadaEspecial.usarCartaEspecial(this.jugadorActual);
+                    opcionIncorrecta = false;//usar jugadorActual
+                    break;
+                default:
+                    System.out.println("opcion incorrecta!");
+            }
+        }
     }
 
+    private boolean elegirOpcionMenuJuego() {
+        int opcion;
+        boolean terminarTurno = false;
+        boolean opcionIncorrecta = true;
+        Scanner sc = new Scanner(System.in);
+
+        while (opcionIncorrecta) {
+
+            this.mensajes.mostrarMenuAccionesJugador();
+            opcion = sc.nextInt();
+            switch (opcion) {
+                case 1:
+                    this.faseComercio.iniciarTradeoJugadores(this.jugadorActual);
+                    opcionIncorrecta = false;//usar jugadorActual
+                    break;
+                case 2:
+                    this.faseConstruccion.menuConstruccion(this.jugadorActual);
+                    opcionIncorrecta = false;//usar jugadorActual
+                    break;
+                case 3:
+                    this.faseComercio.comerciarConBanco(this.jugadorActual);
+                    opcionIncorrecta = false;//usar jugadorActual
+                    break;
+                case 4:
+                    this.faseJugadaEspecial.usarCartaEspecial(this.jugadorActual);
+                    opcionIncorrecta = false;
+                    break;
+                case 5:
+                    terminarTurno = true;
+                    opcionIncorrecta = false;
+                    break;
+                default:
+                    System.out.println("opcion incorrecta!");
+            }
+        }
+
+        return terminarTurno;
+    }
+
+    public void anunciarGanador(String nombre) {
+        this.mensajes.anunciarGanador(nombre);
+    }
+
+}
+//    public Juego(List<Jugador> listaJugadores, Cartografo mapa, TarjetaDeCostes tarjeta, HistorialDeProgresos registroProgreso) {
+//        this.jugadorActual = null;
+//
+//        this.listaJugadores = listaJugadores;
+//        this.mapa = mapa;
+//        this.tarjeta = tarjeta;
+//        this.registroProgreso = registroProgreso;
+//        this.mensajes = new Mensajes();
+//    }
+
+//    public void jugar() {
+//        boolean hayGanador = false;
+//        while (!hayGanador) {
+//            Iterator<Jugador> turno = this.listaJugadores.iterator();
+//            while (!hayGanador && turno.hasNext()) {
+//                this.jugadorActual = turno.next();
+//                boolean turnoTerminado = false;
+//                while (!turnoTerminado) {
+//                    //1-JUGADA ESPECIAL
+//                    //2-TIRADA Y RECOLECCION ( O LADRON)
+//                    turnoTerminado = this.elegirOpcionMenuJuego();
+//                }
+//                //busca si el jugador llego a 10 puntos
+//                ProgresoJugador registroJugador = this.registroProgreso.getProgresoSegunNumeroJugador(this.jugadorActual.getNumeroJugador());
+//                if (esPuntajeGanador(registroJugador.consultarPuntaje())) {
+//                    hayGanador = true;
+//                    this.anunciarGanador(this.jugadorActual.getNombre());
+//                }
+//            }
+//        }
+//    }
 //
 //
 //    @Override
@@ -88,54 +202,3 @@ public class Juego{
 //    private void jugadaLadron() {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 //    }
-//
-//    private void mostrarMenuAccionesJugador() {
-//        System.out.println("**** ACCIONES ******");
-//        System.out.println("1-TRADEAR RECURSOS");
-//        System.out.println("2-CONSTRUIR");
-//        System.out.println("3-COMPRAR RECURSOS BANCO");
-//        System.out.println("4-TERMINAR TURNO");
-//    }
-//
-//    private boolean elegirAccion() {
-//        int opcion;
-//        boolean terminarTurno = false;
-//        System.out.println("ingrese una opcion: ");
-//        opcion = sc.nextInt();
-//        switch(opcion){
-//            case 1:
-//                iniciarTradeoJugadores();//usar jugadorActual
-//                break;
-//            case 2:
-//                menuConstruccion();//usar jugadorActual
-//                break;
-//            case 3:
-//                menuBanco();//usar jugadorActual
-//                break;
-//            case 4:
-//                terminarTurno = true;
-//                break;
-//            default:
-//                System.out.println("opcion incorrecta!");
-//        }
-//        
-//        return terminarTurno;
-//    }
-//
-//    private void iniciarTradeoJugadores() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//
-//    private void menuConstruccion() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//
-//    private void menuBanco() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
-//
-//
-//
-
-
-}

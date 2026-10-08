@@ -30,7 +30,7 @@ public class ConfiguracionMapa {
      * @return 
      */
     public Cartografo configurarMapa(){
-        System.out.println("HOLA CATAN 0.5!");
+        System.out.println("HOLA CATAN 0.7.1!");
 
         //preparo la precarga de Lienzo
         CargaInicialMapa cargaMapa = new CargaInicialMapa();

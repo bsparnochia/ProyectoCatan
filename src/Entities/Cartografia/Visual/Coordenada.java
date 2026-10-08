@@ -9,6 +9,7 @@ package Entities.Cartografia.Visual;
  * @author Brian
  */
 public class Coordenada {
+
     private int fila;
     private int columna;
 
@@ -55,6 +56,5 @@ public class Coordenada {
     public String toString() {
         return "Coordenada{" + "fila=" + fila + ", columna=" + columna + '}';
     }
-    
-    
+
 }

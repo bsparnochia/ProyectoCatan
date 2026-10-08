@@ -14,45 +14,38 @@ import Enumerados.Recurso;
  */
 public class Dibujante {
 
-    private static String borrarC = "\u001B[0m";
-    private static String borrar = "\033[0m";
-
-    //Elementos de colores
-    private static String elementoNegro = "\033[30m";
-    private static String elementoRojo = "\033[31m";
-    private static String elementoVerde = "\033[32m";
-    private static String elementoAmarillo = "\033[33m";
-    private static String elementoAzul = "\033[34m";
-    private static String elementoBlanco = "\033[37m";
-
-    //Fondos de colores
-//    private static String fondoNegro = "\033[40m";
-    private static String fondoNegro = "\033[48;2;0;0;0m";
-    private static String fondoRojo = "\033[41m";
-    private static String fondoVerde = "\033[42m";
-    private static String fondoAzul = "\033[44m";
-    private static String fondoAmarillo = "\033[43m";
-    private static String fondoAmarilloC = "\033[48;5;220m";
-    private static String fondoAgua = "\033[46m";
-    private static String fondoGris = "\033[47m";
-    private static String fondoBordo = "\u001B[38;5;88m";
-    private static String fondoMarron = "\u001B[38;5;130m";
-    private static String fondoVioleta = "\u001B[45m";
-
-//    //Colores "Color" de recursos
-//    private static String colorArcilla= fondoBordo;
-//    private static String colorMadera= fondoMarron;
-//    private static String colorOveja= fondoVerde;
-//    private static String colorTrigo= fondoAmarillo;
-//    private static String colorPiedra= fondoGris;
-//    private static String colorDesierto= fondoAmarillo;
-    //Colores "Color" de recursos
-    private static String colorArcilla = fondoRojo;
-    private static String colorMadera = fondoVioleta;
-    private static String colorOveja = fondoVerde;
-    private static String colorTrigo = fondoAmarillo;
-    private static String colorPiedra = fondoGris;
-    private static String colorDesierto = fondoAzul;
+    private static final String BORRARC = "\u001B[0m";
+    private static final String BORRAR = "\033[0m";
+  
+    //Elementos de final colores
+    private static final String ELEMENTO_NEGRO = "\033[30m";
+    private static final String ELEMENTO_ROJO = "\033[31m";
+    private static final String ELEMENTO_VERDE = "\033[32m";
+    private static final String ELEMENTO_AMARILLO = "\033[33m";
+    private static final String ELEMENTO_AZUL = "\033[34m";
+    private static final String ELEMENTO_BLANCO = "\033[37m";
+  
+    //Fondos de co final ores
+//    private stat final c String FONDO_NEGRO = "\033[40m";
+    private static final String FONDO_NEGRO = "\033[48;2;0;0;0m";
+    private static final String FONDO_ROJO = "\033[41m";
+    private static final String FONDO_VERDE = "\033[42m";
+    private static final String FONDO_AZUL = "\033[44m";
+    private static final String FONDO_AMARILLO = "\033[43m";
+    private static final String FONDO_AMARILLOC = "\033[48;5;220m";
+    private static final String FONDO_AGUA = "\033[46m";
+    private static final String FONDO_GRIS = "\033[47m";
+    private static final String FONDO_BORDO = "\u001B[38;5;88m";
+    private static final String FONDO_MARRON = "\u001B[38;5;130m";
+    private static final String FONDO_VIOLETA = "\u001B[45m";  
+      
+    //Colores "Col final r" de recursos
+    private static final String COLOR_ARCILLA = FONDO_ROJO;
+    private static final String COLOR_MADERA = FONDO_VIOLETA;
+    private static final String COLOR_OVEJA = FONDO_VERDE;
+    private static final String COLOR_TRIGO = FONDO_AMARILLO;
+    private static final String COLOR_PIEDRA = FONDO_GRIS;
+    private static final String COLOR_DESIERTO = ELEMENTO_ROJO;
 
     /**
      * Pinta un elemento del mapa segun su estado
@@ -65,15 +58,15 @@ public class Dibujante {
 
         switch (dibujo) {
             case "*":
-                dibujo = fondoAgua + dibujo + borrar;
+                dibujo = FONDO_AGUA + dibujo + BORRAR;
                 break;
             case "/":
             case "\\":
             case "|":
-                dibujo = dibujo + borrar;
+                dibujo = dibujo + BORRAR;
                 break;
             case "U":
-                dibujo = dibujo + borrar;
+                dibujo = dibujo + BORRAR;
                 break;
         }
 
@@ -93,16 +86,16 @@ public class Dibujante {
 
         switch (color) {
             case Color.ROJO:
-                dibujo = fondoRojo + dibujo + borrar;
+                dibujo = FONDO_ROJO + dibujo + BORRAR;
                 break;
             case Color.AMARILLO:
-                dibujo = fondoAmarillo + dibujo + borrar;
+                dibujo = FONDO_AMARILLO + dibujo + BORRAR;
                 break;
             case Color.AZUL:
-                dibujo = fondoAzul + dibujo + borrar;
+                dibujo = FONDO_AZUL + dibujo + BORRAR;
                 break;
             case Color.VERDE:
-                dibujo = fondoVerde + dibujo + borrar;
+                dibujo = FONDO_VERDE + dibujo + BORRAR;
                 break;
         }
         return dibujo;
@@ -139,22 +132,22 @@ public class Dibujante {
 
         switch (color) {
             case Color.ARCILLA:
-                dibujo = colorArcilla + dibujo + borrar;
+                dibujo = COLOR_ARCILLA + dibujo + BORRAR;
                 break;
             case Color.MADERA:
-                dibujo = colorMadera + dibujo + borrar;
+                dibujo = COLOR_MADERA + dibujo + BORRAR;
                 break;
             case Color.OVEJA:
-                dibujo = colorOveja + dibujo + borrar;
+                dibujo = COLOR_OVEJA + dibujo + BORRAR;
                 break;
             case Color.PIEDRA:
-                dibujo = colorPiedra + dibujo + borrar;
+                dibujo = COLOR_PIEDRA + dibujo + BORRAR;
                 break;
             case Color.TRIGO:
-                dibujo = colorTrigo + dibujo + borrar;
+                dibujo = COLOR_TRIGO + dibujo + BORRAR;
                 break;
             default:
-                dibujo = colorDesierto + dibujo + borrar;
+                dibujo = COLOR_DESIERTO + dibujo + BORRAR;
                 break;
 
         }
@@ -215,10 +208,10 @@ public class Dibujante {
                 switch (coordY) {
                     case 6:
                         if (coordX == 1) {
-                            espacioL = fondoAzul + " " + borrarC;
+                            espacioL = FONDO_AZUL + " " + BORRARC;
                         }
                         if (coordX == 21) {
-                            espacioR = fondoAzul + " " + borrarC;
+                            espacioR = FONDO_AZUL + " " + BORRARC;
                         }
                         break;
                 }
@@ -259,7 +252,7 @@ public class Dibujante {
                         }
                         break;
                 }
-                fuente = fondoAgua + elementoNegro;
+                fuente = FONDO_AGUA + ELEMENTO_NEGRO;
                 break;
             case "U":
                 espacioL = "  ";
@@ -275,7 +268,7 @@ public class Dibujante {
                         }
                         break;
                 }
-                fuente = fondoNegro + elementoBlanco;
+                fuente = FONDO_NEGRO + ELEMENTO_BLANCO;
                 break;
             default:
                 if (dibujo.matches("\\d+")) {
@@ -288,11 +281,11 @@ public class Dibujante {
                     }
                 }
                 // Todos los números caen aca
-                fuente = fondoAmarilloC + elementoNegro;
+                fuente = FONDO_AMARILLOC + ELEMENTO_NEGRO;
                 break;
         }
 
-        return fuente + espacioL + dibujo + espacioR + borrarC;
+        return fuente + espacioL + dibujo + espacioR + BORRARC;
     }
 
 }
